@@ -1,10 +1,11 @@
 import { useState } from "react";
+import InfoMap from "./components/InfoMap";
 import WordCloud from "./components/WordCloud";
 import words from "./components/words";
 import words2 from "./components/words2";
-import  {ReactComponent  as Kr} from './assets/kr.svg'
-function App() {
 
+function App() {
+  // useEffect()
   const [sousrce,setSource] = useState([]);
   return (
     <div >
@@ -17,7 +18,7 @@ function App() {
         test2
       </label>
       <WordCloud source={sousrce} />
-      <Kr />
+      <InfoMap/>
     </div>
   );
 }
