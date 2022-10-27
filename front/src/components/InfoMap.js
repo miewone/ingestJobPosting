@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState, useRef, useEffect } from "react";
 import { ReactComponent as Kr } from '../assets/kr.svg'
 
 
 
 const InfoMap = () => {
     const [locations, setLocations] = useState([]);
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", '../assets/kr.svg', false);
-    rawFile.onreadystatechange = () => {
-        if (rawFile.readyState === 4) {
-            if (rawFile.status === 200 || rawFile.status == 0) {
-                var xmlasstring = rawFile.responseText;
-                console.log('Your xml file as string', xmlasstring)
-            }
-        }
-    }
+    const testRef = useRef()
+    useEffect( ()=> {
+        setLocations(Object.entries(testRef.current.childNodes).map((val) => {
+            return val[1].id
+        }))
+    },[])
+    console.log(testRef.current.childNodes)
+    console.log(locations)
     return (
         <div>
             <Kr onClick={(e) => {
-                console.log(e.target.id);
-            }} />
+                    console.log(e);
+                }}
+                ref = {testRef}
+             />
 
         </div>
 
