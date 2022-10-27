@@ -529,3 +529,5 @@ gradle-app.setting
 
 
 **/chromedriver.exe
+
+**/config.py
