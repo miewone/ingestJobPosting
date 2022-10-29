@@ -1,0 +1,27 @@
+
+debug: false
+management.endpoints.web.exposure.include: "*"
+
+
+logging:
+  level:
+    org.springframework.web.servlet: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+spring:
+  datasource:
+    url: ${datasource.url}?characterEncoding=utf8
+    username: ${datasource.username}
+    password: ${datasource.password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    defer-datasource-initialization: true
+    hibernate.ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+      hibernate.default_batch_fetch_size: 100
+  sql.init.mode: always
+#  data.rest:
+#    base-path: /api
+#    detection-strategy: annotated
