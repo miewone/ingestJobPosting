@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const port = 3000;
 
+const isEnvProduction = false
+const shouldUseReactRefresh = false
 module.exports = {
     mode: 'development',
     entry: './src/index.js',
@@ -14,10 +16,17 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js)$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                use: ['babel-loader']
+                use: ['babel-loader'],
             },
+            {
+                test: /\.(png|jp(e*)g)$/,
+                use: [{
+                  loader: "url-loader",
+                //   options: { ...loaderOptions  }
+                }]
+              },
             {
                 test: /\.css$/,
                 use: [
@@ -32,7 +41,22 @@ module.exports = {
                         // }
                     }
                 ]
-            }
+            },
+            {
+                test: /\.svg$/,
+                issuer: /\.[jt]sx?$/,
+                // use: ["file-loader?name=[name].[ext]"],
+                use: [{
+                    loader: '@svgr/webpack',
+                    // options: {
+                    //     svgo: false,
+                    //   },
+                },
+                // {
+                //     loader: 'url-loader'
+                // }
+                ],
+            },
         ]
     },
     plugins: [
@@ -46,6 +70,5 @@ module.exports = {
         open: true,
         historyApiFallback: true,
         hot: true
-
     }
 };
