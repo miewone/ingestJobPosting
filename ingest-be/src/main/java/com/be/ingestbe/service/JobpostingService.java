@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,11 +15,11 @@ public class JobpostingService {
     private final JobpostingRepository JobpostingRepository;
 
     public List<Jobposting> Jobpostings(){
-        List<Jobposting> tt = JobpostingRepository.findAll();
-        return tt;
+        return JobpostingRepository.findAll();
     }
 
-//    public List<String> get_Jobposting_skills(){
-//        return JobpostingRepository.findAllBySkills();
+//    public Optional<List<String>> get_Jobposting_skills(){
+//        Optional<List<String>> tt = JobpostingRepository.findAllBySkills();
+//        return tt;
 //    }
 }
