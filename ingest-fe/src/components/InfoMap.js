@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-// import { ReactComponent as Kr } from '../assets/kr.svg'
 import Mapkr  from "../assets/Mapkr"
 
 
@@ -22,7 +21,6 @@ const InfoMap = () => {
                 onClick={(e)=>{console.log(e)}}
                 ref={testRef}
              />
-             {/* <Kr/> */}
         </div>
     )
 }
