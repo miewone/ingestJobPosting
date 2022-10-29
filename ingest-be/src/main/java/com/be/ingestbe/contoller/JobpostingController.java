@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/Jobposting")
 @RestController
 @RequiredArgsConstructor
 public class JobpostingController {
-    private static JobpostingService JobpostingService;
+
+    private final JobpostingService JobpostingService;
 
     @GetMapping("/all")
     public List<Jobposting> get_Jobpostings(){
@@ -21,7 +23,7 @@ public class JobpostingController {
     }
 
 //    @GetMapping("/skills")
-//    public List<String> get_Jobposting_skills(){
+//    public Optional<List<String>> get_Jobposting_skills(){
 //        return JobpostingService.get_Jobposting_skills();
 //    }
 }
