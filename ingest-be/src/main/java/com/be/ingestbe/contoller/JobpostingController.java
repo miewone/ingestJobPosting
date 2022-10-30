@@ -1,29 +1,37 @@
 package com.be.ingestbe.contoller;
 
 import com.be.ingestbe.domain.Jobposting;
+
+import com.be.ingestbe.dto.JobpostingDto;
+import com.be.ingestbe.mapper.JobPostingSkillsMapping;
 import com.be.ingestbe.service.JobpostingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("/Jobposting")
+@RequestMapping("/jobinfo")
 @RestController
 @RequiredArgsConstructor
 public class JobpostingController {
 
     private final JobpostingService JobpostingService;
 
+
     @GetMapping("/all")
-    public List<Jobposting> get_Jobpostings(){
+    public List<Jobposting> jobPostings(){
         return JobpostingService.Jobpostings();
     }
 
-//    @GetMapping("/skills")
-//    public Optional<List<String>> get_Jobposting_skills(){
-//        return JobpostingService.get_Jobposting_skills();
-//    }
+    @GetMapping("/skills")
+    public List<String> get_Jobposting_skills(){
+        return JobpostingService.getJobpostingAllSkills();
+    }
+
+    @GetMapping("/locations/{skill}")
+    public List<String> jobPostingSearchBySkill(@PathVariable String skill){
+        return JobpostingService.searchJobpostingBySkill(skill);
+    }
 }
