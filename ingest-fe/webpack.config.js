@@ -67,8 +67,14 @@ module.exports = {
     devServer: {
         host: 'localhost',
         port: port,
-        open: true,
+        open: false,
         historyApiFallback: true,
-        hot: true
+        hot: true,
+        proxy: {
+            '**': { 
+                target: 'http://localhost:8080/' ,
+            }
+
+        }
     }
 };
