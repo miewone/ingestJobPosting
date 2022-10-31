@@ -5,7 +5,7 @@ import axios from 'axios';
 import Mapkr  from "../assets/Mapkr"
 import { select } from "d3-selection";
 
-const KR_LOCATION = ["충청북도", "인천", "강원", "서울", "경기", "전라북도", "광주", "충천남도", "대전", "대구", "경상남도", "전라남도", "부산", "울산", "경상북도", "제주도", "세종"]
+const KR_LOCATION = ["충청북도", "인천", "강원", "서울", "경기", "전라북도", "광주", "충청남도", "대전", "대구", "경상남도", "전라남도", "부산", "울산", "경상북도", "제주도", "세종"]
 const findLocationInlocation = (str) => {
     KR_LOCATION.map(value => {
         if (value.includes(str)){
@@ -114,17 +114,18 @@ const WordCloud = ({ source }) => {
             <div style={{position:"absolute", left:"50%"}}>
                 {pocusloations}
             </div>
-            <div style={{marginTop:"5em", width: "50%", height: "100%"}}>
+            <div style={{marginTop:"5em", width: "40%", height: "100%"}}>
                 <ReactWordcloud 
                     callbacks={callbacks}
                     words={source}
                     options={options}
-                    maxWords={150} 
+                    maxWords={50} 
                     // size={size}
                 />
             </div>
             {/* </Resizable> */}
             {/* <InfoMap /> */}
+            {console.log(Object.entries(CounterKrLocations))}
             <div style={{ width: "50%", height: "100%" }}>
                 <Mapkr 
                     click={(e)=>{console.log(e.target[Object.keys(e.target)[1]].id)}}
@@ -132,6 +133,16 @@ const WordCloud = ({ source }) => {
                     locations = {CounterKrLocations}
                     ref={testRef}
                 />
+            </div>
+            <div style={{display: 'flex',flexDirection:'column',width: "10%",position:'absolute',right:'20em'}}>
+                {Object.entries(CounterKrLocations).map(value => {
+                    return (
+                    value[1] > 0 && <div style={{display: 'flex'}}>
+                        <div  style={{background: `hsl(10 100% ${68-Math.log2(value[1])*5}%)`,width:"20px",borderRadius:'90%',padding:'0.2em'}}>
+                        </div >
+                        {value[0]} : {value[1]}
+                    </div>)
+                })}
             </div>
         </div>
     );
