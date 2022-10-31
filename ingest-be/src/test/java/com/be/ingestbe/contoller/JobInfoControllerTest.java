@@ -46,4 +46,16 @@ class JobInfoControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andDo(print());
     }
+
+    @Test
+    public void givenSkill_whenSearchingSkills_thenReturnSkillsRestApi() throws Exception{
+        // Given
+
+        // When & Then
+        mvc.perform(get("/jobinfo/locations/java"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andDo(print());
+    }
+
 }

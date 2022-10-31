@@ -43,7 +43,7 @@ class JobpostingServiceTest {
 
         then(jobPostingSkillsMapperRespotiroy).should().findAllBy();
     }
-    @DisplayName("스킬 검색어로 포스팅을 검색하면 스킬과 지역들을 반환.")
+    @DisplayName("스킬 검색어로 포스팅을 검색하면 스킬과 지역들을 해쉬맵 형식으로 반환.")
     @Test
     void givenSearchKeyword_whenSearchingJobPosting_thenReturnJobPosting(){
         // Given
@@ -58,4 +58,6 @@ class JobpostingServiceTest {
 
         then(jobPostingSkillsMapperRespotiroy).should().findAllBySkillsContaining(searchKeyword);
     }
+
+
 }
