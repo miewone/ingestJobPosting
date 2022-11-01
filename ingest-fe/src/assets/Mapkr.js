@@ -17,8 +17,9 @@ class Mapkr extends React.Component {
         strokeLinejoin="round"
         strokeWidth="1.2"
         version="1.2"
-        preserveAspectRatio="none"
+        // preserveAspectRatio="none"
         onClick={this.props.click}
+        // onMouseOver={this.props.hover}
         ref={this.svgRef}
       >
         {/* hsv(9, 100%, 168%) */}
