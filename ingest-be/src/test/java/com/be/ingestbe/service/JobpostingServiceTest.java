@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.then;
@@ -49,7 +50,7 @@ class JobpostingServiceTest {
         // Given
         String searchKeyword = "java";
         // When
-        List<String> jobPostingSkillsMappings = sut.searchJobpostingBySkill(searchKeyword);
+        Map<String,Long> jobPostingSkillsMappings = sut.searchJobpostingBySkill(searchKeyword);
 
 
         // Then

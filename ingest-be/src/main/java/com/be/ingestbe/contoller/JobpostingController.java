@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RequestMapping("/jobinfo")
@@ -31,7 +32,7 @@ public class JobpostingController {
     }
 
     @GetMapping("/locations/{skill}")
-    public List<String> jobPostingSearchBySkill(@PathVariable String skill){
+    public Map<String,Long> jobPostingSearchBySkill(@PathVariable String skill){
         return JobpostingService.searchJobpostingBySkill(skill);
     }
 }
