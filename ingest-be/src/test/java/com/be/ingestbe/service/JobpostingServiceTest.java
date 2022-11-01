@@ -60,5 +60,19 @@ class JobpostingServiceTest {
         then(jobPostingSkillsMapperRespotiroy).should().findAllBySkillsContaining(searchKeyword);
     }
 
+    @DisplayName("전체공고에서 지역의 차이를 보기위해")
+    @Test
+    void givenLocation_whenSearchingLocation_thenReturnLocations(){
+        // Given
+        // When
+        Map<String,Long> jobPostingSkillsMappings = sut.allPostingCounterLocation();
+
+
+        // Then
+        assertThat(jobPostingSkillsMappings).isEmpty();
+
+        then(jobPostingSkillsMapperRespotiroy).should().findAllBy();
+    }
+
 
 }

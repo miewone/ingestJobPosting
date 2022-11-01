@@ -52,9 +52,20 @@ class JobInfoControllerTest {
         // Given
 
         // When & Then
-        mvc.perform(get("/jobinfo/locations/java"))
+        mvc.perform(get("/jobinfo/locations/python"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print());
+    }
+
+    @Test
+    public void givenNone_whenSearchingLocations_thenReturnLocationsCounting() throws Exception{
+        // Given
+
+        // When & Then
+        mvc.perform(get("/jobinfo/exposebylocation"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print());
     }
 
