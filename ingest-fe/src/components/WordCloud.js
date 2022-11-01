@@ -5,37 +5,13 @@ import axios from 'axios';
 import Mapkr  from "../assets/Mapkr"
 import { select } from "d3-selection";
 
-const KR_LOCATION = ["충청북도", "인천", "강원", "서울", "경기", "전라북도", "광주", "충청남도", "대전", "대구", "경상남도", "전라남도", "부산", "울산", "경상북도", "제주도", "세종"]
-const findLocationInlocation = (str) => {
-    KR_LOCATION.map(value => {
-        if (value.includes(str)){
-            CounterKrLocations[value] +=1
-        }
-    })
-}
-const Counter = (array) => {
-    var count = {};
-    array.forEach(val => count[val] = (count[val] || 0) );
-    return count;
-}
-
-let CounterKrLocations = Counter(KR_LOCATION);
+let CounterKrLocations = ""
 
 
-
-const resizeStyle = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    border: "solid 1px #ddd"
-};
-const size = [600, 400];
-
-let locationz = "";
 const WordCloud = ({ source }) => {
     const [pocusloations,setPocuslocations] = useState('');
     const [locations, setLocations] = useState([]);
-    const [getMaplocations, setGetMapLocations] = useState([]);
+
 
     const options = {
         colors: ["#4E197F", "#2A63B3", "#4FB35D"],
@@ -54,15 +30,10 @@ const WordCloud = ({ source }) => {
     };
 
     const searchLocationBySkill = async (e) => {
-        CounterKrLocations = Counter(KR_LOCATION);
+        CounterKrLocations = ""
         await axios.get(`/jobinfo/locations/${e.text}`)
             .then((res) => {
-                console.log(e);
-                setPocuslocations(e.text);
-                const data = res.data.map(value => {
-                    findLocationInlocation(value)
-                })
-                setLocations(data)
+                setLocations(res.data)
             })
             .catch((err) => {
                 console.log(err);
@@ -93,24 +64,8 @@ const WordCloud = ({ source }) => {
     }
 
     const testRef = useRef();
-    useEffect(() => {
-        setGetMapLocations(Object.entries(testRef.current.svgRef.current.childNodes)
-            .filter(node => node[1].nodeName == "path")
-            .map((val) => {
-                return { name: val[1].attributes.name.value, id: val[1].id };
-            }));
-    }, []);
     return (
-        // <div style={{ display: 'flex'}}>
         <div style={{ display: 'flex'}}>
-            {/* <Resizable
-                defaultSize={{
-                    width: 500,
-                    height: 250
-                }}
-                style={resizeStyle}
-
-            > */}
             <div style={{position:"absolute", left:"50%"}}>
                 {pocusloations}
             </div>
@@ -123,22 +78,18 @@ const WordCloud = ({ source }) => {
                     // size={size}
                 />
             </div>
-            {/* </Resizable> */}
-            {/* <InfoMap /> */}
-            {console.log(Object.entries(CounterKrLocations))}
             <div style={{ width: "50%", height: "100%" }}>
                 <Mapkr 
                     click={(e)=>{console.log(e.target[Object.keys(e.target)[1]].id)}}
-                    // onClick={(e)=>{console.log(e)}}
-                    locations = {CounterKrLocations}
+                    locations = {locations}
                     ref={testRef}
                 />
             </div>
-            <div style={{display: 'flex',flexDirection:'column',width: "10%",position:'absolute',right:'20em'}}>
-                {Object.entries(CounterKrLocations).map(value => {
+            <div style={{display: 'flex',flexDirection:'column',width: "10%",position:'absolute',right:'1em'}}>
+                {Object.entries(locations).map((value,idx) => {
                     return (
-                    value[1] > 0 && <div style={{display: 'flex'}}>
-                        <div  style={{background: `hsl(10 100% ${68-Math.log2(value[1])*5}%)`,width:"20px",borderRadius:'90%',padding:'0.2em'}}>
+                    value[0].length > 0 && value[1] > 0 && <div style={{display: 'flex'}}>
+                        <div  style={{background: `hsl(10 100% ${68-Math.log2(value[1])*5}%)`,width:"20px",borderRadius:'90%',padding:'0.2em'}} key={value[0]+idx}>
                         </div >
                         {value[0]} : {value[1]}
                     </div>)
