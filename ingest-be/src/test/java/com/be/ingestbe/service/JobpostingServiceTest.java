@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.then;
@@ -43,13 +44,13 @@ class JobpostingServiceTest {
 
         then(jobPostingSkillsMapperRespotiroy).should().findAllBy();
     }
-    @DisplayName("스킬 검색어로 포스팅을 검색하면 스킬과 지역들을 반환.")
+    @DisplayName("스킬 검색어로 포스팅을 검색하면 스킬과 지역들을 해쉬맵 형식으로 반환.")
     @Test
     void givenSearchKeyword_whenSearchingJobPosting_thenReturnJobPosting(){
         // Given
         String searchKeyword = "java";
         // When
-        List<String> jobPostingSkillsMappings = sut.searchJobpostingBySkill(searchKeyword);
+        Map<String,Long> jobPostingSkillsMappings = sut.searchJobpostingBySkill(searchKeyword);
 
 
         // Then
@@ -58,4 +59,6 @@ class JobpostingServiceTest {
 
         then(jobPostingSkillsMapperRespotiroy).should().findAllBySkillsContaining(searchKeyword);
     }
+
+
 }
