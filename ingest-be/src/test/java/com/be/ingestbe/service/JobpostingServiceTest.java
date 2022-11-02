@@ -1,7 +1,6 @@
 package com.be.ingestbe.service;
 
-import com.be.ingestbe.mapper.JobPostingSkillsMapping;
-import com.be.ingestbe.repository.JobPostingSkillsMapperRespotiroy;
+import com.be.ingestbe.repository.JobPostingSkillsMapperRepository;
 import com.be.ingestbe.repository.JobpostingRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,6 @@ import static org.mockito.BDDMockito.then;
 
 
 @ExtendWith(MockitoExtension.class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class JobpostingServiceTest {
 
     @InjectMocks
@@ -27,7 +25,7 @@ class JobpostingServiceTest {
     @Mock
     private JobpostingRepository jobpostingRepository;
     @Mock
-    private JobPostingSkillsMapperRespotiroy jobPostingSkillsMapperRespotiroy;
+    private JobPostingSkillsMapperRepository jobPostingSkillsMapperRepository;
 
 
     @DisplayName("스킬 검색어로 포스팅을 검색하면 스킬과 지역들을 반환.")
@@ -42,7 +40,7 @@ class JobpostingServiceTest {
         assertThat(jobPostingSkillsMappings)
                 .isNotNull();
 
-        then(jobPostingSkillsMapperRespotiroy).should().findAllBy();
+        then(jobPostingSkillsMapperRepository).should().findAllBy();
     }
     @DisplayName("스킬 검색어로 포스팅을 검색하면 스킬과 지역들을 해쉬맵 형식으로 반환.")
     @Test
@@ -57,7 +55,7 @@ class JobpostingServiceTest {
         assertThat(jobPostingSkillsMappings)
                 .isNotNull();
 
-        then(jobPostingSkillsMapperRespotiroy).should().findAllBySkillsContaining(searchKeyword);
+        then(jobPostingSkillsMapperRepository).should().findAllBySkillsContaining(searchKeyword);
     }
 
     @DisplayName("전체공고에서 지역의 차이를 보기위해")
@@ -71,7 +69,7 @@ class JobpostingServiceTest {
         // Then
         assertThat(jobPostingSkillsMappings).isEmpty();
 
-        then(jobPostingSkillsMapperRespotiroy).should().findAllBy();
+        then(jobPostingSkillsMapperRepository).should().findAllBy();
     }
 
 
