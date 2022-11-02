@@ -1,0 +1,6 @@
+text:hover{
+    fill: rgb(228, 71, 51);
+    transition: 0.2s;
+    font-weight: bold;
+    background-color: white;
+}

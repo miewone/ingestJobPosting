@@ -1,8 +1,14 @@
 .TEXT {
     /* fill: rgb(0, 0, 0); */
-    stroke: rgb(75, 52, 52);
+    stroke: rgb(255, 255, 255);
     font-size: 1.1em;
     /* font-weight: bold; */
     /* text-anchor: middle; */
     /* alignment-baseline: middle; */
+}
+
+
+
+path:hover{
+    fill: rgb(110, 138, 192);
 }
