@@ -1,6 +1,6 @@
 package com.be.ingestbe.mapper;
 
-public interface JobPostingSkillsMapping {
+public interface JobPostingSkillsMapper {
     String getSkills();
     String getLocation();
     String getBenefits();
