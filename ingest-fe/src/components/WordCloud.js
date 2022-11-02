@@ -35,6 +35,7 @@ let jobpostingSkills = [];
 const WordCloud = () => {
     const [source, setSource] = useState([]);
     const [locations, setLocations] = useState([]);
+    const [category,setCategory] = useState([]);
     const testRef = useRef();
     // const [allLocations,setAllLocations] = useState({});
 
@@ -44,6 +45,7 @@ const WordCloud = () => {
         CounterKrLocations = ""
         await axios.get(`/jobinfo/locations/${e.text}`)
             .then((res) => {
+                console.log(res.data)
                 setLocations(res.data)
             })
             .catch((err) => {
@@ -60,6 +62,13 @@ const WordCloud = () => {
             .catch((err) => {
                 console.log(err);
             });
+        await axios.get("/category/onlycategory")
+            .then((res)=> {
+                setCategory(res.data)
+            })
+            .catch((err)=>{
+                console.log(err)
+            });
     };
     const getAllLocations = async() =>{
         // isActive = false;
@@ -71,6 +80,16 @@ const WordCloud = () => {
                 console.log(err);
             });
     };
+    const getSkillsOfCategory = async (category)=> {
+        await axios.post("/category/search",category)
+        .then((res)=> {
+            console.log(res.data)
+            setSource(Object.entries(res.data).map(values => {return {text : values[0].toUpperCase()  ,value : Math.log2(values[1]) * 10}}));
+        })
+        .catch((err)=>{
+            console.log(err)
+        });
+    }
     // function getCallback(callback) {
     //     return function (word, event) {
 
@@ -117,6 +136,16 @@ const WordCloud = () => {
                 <div style={{ position: "absolute", left: "50%" }}>
                     {pocusloations}
                 </div> */}
+                <div>
+                    {category && category.map(value => {
+                        return(
+                            <label>
+                                <input type="radio" name="category" onChange={() => getSkillsOfCategory(value)}/> 
+                                {value}
+                            </label>
+                        )
+                    })}
+                </div>
                 <div style={{ marginTop: "5em", width: "40%", height: "100%" }}>
                     {<ReactWordcloud
                         callbacks={callbacks}
