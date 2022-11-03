@@ -1,6 +1,6 @@
 import React from "react";
 
-class Incheon extends React.Component {
+class Seoul extends React.Component {
   render() {
     return (
       <svg
@@ -92,4 +92,4 @@ class Incheon extends React.Component {
   }
 }
 
-export default Incheon;
+export default Seoul;

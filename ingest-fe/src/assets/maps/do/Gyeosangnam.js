@@ -96,4 +96,8 @@ class Gyeosangbuk extends React.Component {
   }
 }
 
+<<<<<<< HEAD
 export default Gyeosangbuk;
+=======
+export default Gyeosangnam;
+>>>>>>> 2aa22e6445534579c7aca5059459be0f1434ef03
