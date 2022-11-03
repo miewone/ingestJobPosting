@@ -1,11 +1,26 @@
 import React, { useState, useEffect, useRef, memo } from 'react';
 import ReactWordcloud from "react-wordcloud";
-import { Resizable } from "re-resizable";
 import axios from 'axios';
-import Mapkr from "../assets/Mapkr"
-import { select } from "d3-selection";
-import "../assets/style/wordcloud.css";
+import Mapkr from "../assets/maps/Mapkr"
+import Chungcheongbuk from "../assets/maps/do/Chungcheongbuk"
+import Chungcheongnam from "../assets/maps/do/Chungcheongnam"
+import Gangwon from "../assets/maps/do/Gangwon"
+import Gyeonggl from "../assets/maps/do/Gyeonggi"
+import Gyeosangbuk from "../assets/maps/do/Gyeosangbuk"
+import Gyeosangnam from "../assets/maps/do/Gyeosangnam"
+import Jejuo from "../assets/maps/do/Jejuo"
+import Jeonlabukdo from "../assets/maps/do/Jeonlabukdo"
+import Jeonranamdo from "../assets/maps/do/Jeonranamdo"
+import Busan from "../assets/maps/si/Busan"
+import Daegu from "../assets/maps/si/Daegu"
+import Daijeon from "../assets/maps/si/Daijeon"
+import Gwangju from "../assets/maps/si/Gwangju"
+import Incheon from "../assets/maps/si/Incheon"
+import Sejong from "../assets/maps/si/Sejong"
+import Seoul from "../assets/maps/si/Seoul"
+import Ulsan from "../assets/maps/si/Ulsan"
 
+// import "../assets/style/wordcloud.css";
 let CounterKrLocations = "";
 let isActive = false;
 const Counter = (array) => {
@@ -136,7 +151,7 @@ const WordCloud = () => {
                 <div style={{ position: "absolute", left: "50%" }}>
                     {pocusloations}
                 </div> */}
-                <div>
+                <div style={{ display: 'flex' ,flexDirection:"column"}}>
                     {category && category.map(value => {
                         return(
                             <label>
@@ -155,12 +170,13 @@ const WordCloud = () => {
                     // size={size}
                     />}
                 </div>
-                <div style={{ width: "50%", height: "100%" }}>
+                <div style={{ display:'flex',width: "50%", height: "100%" }}>
                     <Mapkr
                         click={(e) => { console.log(e.target[Object.keys(e.target)[1]].id) }}
                         locations={locations}
                         ref={testRef}
                     />
+                    <Ulsan/>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', width: "10%", position: 'absolute', right: '1em' }}>
                     {Object.entries(locations).map((value, idx) => {
@@ -173,7 +189,8 @@ const WordCloud = () => {
                     })}
                 </div>
             </div>
-
+            <div>
+            </div>
         </div>
     );
 };
