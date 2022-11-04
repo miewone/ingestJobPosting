@@ -29,9 +29,19 @@ public class JobpostingService {
         return jobPostingSkillsMapperRepository.findAllBy().stream().map(obj -> obj.getSkills().split(",")).flatMap(Arrays::stream).collect(Collectors.toList());
     }
     public Map<String,Long> searchJobpostingBySkill(String skill){
+        String lowerCase = skill.toLowerCase(Locale.ROOT);
         return jobPostingSkillsMapperRepository
-                .findAllBySkillsContaining(skill)
+                .findAllBySkillsContaining(lowerCase)
                 .stream()
+                .filter(post -> {
+                    String[] posSkills = post.getSkills().split(",");
+                    for(String postSkill : posSkills) {
+                        if(postSkill.equals(lowerCase)){
+                            return true;
+                        }
+                    }
+                    return false;
+                })
                 .map(obj -> counterLocations(obj.getLocation()))
                 .collect(Collectors.groupingBy(String::toString,Collectors.counting()));
     }
