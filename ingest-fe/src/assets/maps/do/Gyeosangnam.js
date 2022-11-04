@@ -1,6 +1,6 @@
 import React from "react";
 
-class Gyeosangbuk extends React.Component {
+class Gyeosangnam extends React.Component {
   render() {
     return (
       <svg
@@ -96,8 +96,4 @@ class Gyeosangbuk extends React.Component {
   }
 }
 
-<<<<<<< HEAD
-export default Gyeosangbuk;
-=======
 export default Gyeosangnam;
->>>>>>> 2aa22e6445534579c7aca5059459be0f1434ef03

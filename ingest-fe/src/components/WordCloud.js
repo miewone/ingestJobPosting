@@ -185,14 +185,13 @@ const WordCloud = () => {
                     {/* <Jejuo/> */}
                     {/* <Jeonlabukdo/> */}
                     {/* <Jeonranamdo/> */}
-                    <Busan/>
+                    {/* <Busan/> */}
                     {/* <Daegu/> */}
                     {/* <Daijeon/> */}
                     {/* <Gwangju/> */}
                     {/* <Incheon/> */}
                     {/* <Sejong/> */}
-                    {/* <Seoul/> */}
-                    <Ulsan/>
+                    {/* <Ulsan/> */}
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', width: "10%", position: 'absolute', right: '1em' }}>
                     {Object.entries(locations).map((value, idx) => {
@@ -204,6 +203,8 @@ const WordCloud = () => {
                             </div>)
                     })}
                 </div>
+                <Seoul/>
+
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 import React from "react";
 
-class Incheon extends React.Component {
+class Sejongsi extends React.Component {
   render() {
     return (
       <svg
