@@ -1,76 +1,206 @@
 import React from "react";
-
+import "../../style/mapText.css"
+const here = "부산";
 class Busan extends React.Component {
   constructor(props) {
     super(props);
+    console.log(this.props.locations)
     this.svgRef = React.createRef();
+    console.log(this.svgRef)
+  }
+  componentDidMount() {
+    console.log(this.svgRef["current"].childNodes[1].childNodes)
+    this.props.selectedCallback(here, this.props.skill);
+    console.log(this.props.locations);
+    Object.values(this.svgRef["current"].childNodes[1].childNodes).map(value => {
+      value.style.fill = value.tagName == 'path' ? `${this.props.locations[Object.entries(value)[1][1].name] ? `hsl(10 100% ${68 - Math.log2(this.props.locations[Object.entries(value)[1][1].name]) * 5}%)` : 'rgb(166, 166, 166)'}` : undefined;
+    })
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.locations !== prevProps.locations) {
+      Object.values(this.svgRef["current"].childNodes[1].childNodes).map(value => {
+        value.style.fill = value.tagName == 'path' ? `${this.props.locations[Object.entries(value)[1][1].name] ? `hsl(10 100% ${68 - Math.log2(this.props.locations[Object.entries(value)[1][1].name]) * 5}%)` : 'rgb(166, 166, 166)'}` : undefined;
+      })
+    }
+    if (this.props.skill !== prevProps.skill) {
+      this.props.selectedCallback(here, this.props.skill);
+
+    }
   }
   render() {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="227"
-        height="221"
+        width="500"
+        height="500"
         overflow="hidden"
-	      viewBox="0 0 227 221"
+        viewBox="800 0 3300 2000"
         onClick={this.props.click}
+        ref={this.svgRef}
+
       >
         <defs>
-          <clipPath id="clip0">
-            <path d="M2622 1725H2849V1946H2622z"></path>
-          </clipPath>
+          <defs>
+            <filter id="dropshadow">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="7" />
+              <feOffset dx="0" dy="0" result="offsetblur" />
+              <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="dropshadow2">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="1.4" />
+              <feOffset dx="1" dy="1" result="offsetblur" />
+              <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
         </defs>
-        <g
-          fill="#B8B8B8"
-          fillRule="evenodd"
-          stroke="#FFF"
-          strokeMiterlimit="8"
-          strokeWidth="1.719"
-          clipPath="url(#clip0)"
-          transform="translate(-2622 -1725)"
-        >
-        <path
-            d="M2847 1755.81 2828.16 1764.04 2806.23 1836 2784.64 1823.32 2777.45 1799.68 2761 1771.23 2771.96 1745.88 2764.77 1736.62 2791.15 1745.53 2801.09 1726 2829.18 1726 2847 1755.81Z"
-            stroke="#FFFFFF" stroke-width="1.71893" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" />
-        <path d="M2708.48 1827 2723 1834.21 2719.62 1861.01 2714.56 1868.91 2697 1872 2697 1862.04Z" stroke="#FFFFFF"
-            stroke-width="1.71893" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" />
-        <path d="M2765.15 1835 2770.04 1845.67 2769.72 1846 2772 1848.67 2766.46 1859 2757 1848 2764.83 1836.33Z"
-            stroke="#FFFFFF" stroke-width="1.71893" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" />
-        <path d="M2735 1830 2765 1835.61 2756.63 1847.9 2750.7 1850Z" stroke="#FFFFFF" stroke-width="1.71893"
-            stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" />
-        <path
-            d="M2639.18 1888.57 2642.28 1892.71 2649.18 1914.41 2639.87 1943 2625.72 1908.21 2638.14 1899.6 2631.59 1895.46 2639.18 1888.57ZM2684.02 1885.13 2684.71 1885.47 2684.71 1886.51 2676.43 1894.09 2643.66 1892.36 2640.21 1888.57 2646.08 1876.17 2624 1852.75 2654.7 1846.55 2660.22 1855.85 2664.02 1821.75 2713 1809 2709.21 1827.6 2709.21 1827.6 2697.13 1862.74 2697.13 1862.74 2685.4 1878.93 2684.02 1885.13Z"
-            stroke="#FFFFFF" stroke-width="1.71893" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" />
-        <path d="M2777 1799.6 2762.22 1822 2740.91 1813.73 2733 1811.32 2734.03 1787.89 2760.84 1771Z" stroke="#FFFFFF"
-            stroke-width="1.71893" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" />
-        <path
-            d="M2693.34 1892.43 2685 1885.94 2685 1884.57 2686.04 1879.1 2686.04 1878.76 2696.12 1862 2696.12 1872.26 2714.18 1869.18 2718 1908.85 2702.72 1904.74 2702.37 1915 2695.42 1903.72 2693.34 1892.43Z"
-            stroke="#FFFFFF" stroke-width="1.71893" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" />
-        <path
-            d="M2762 1822.1 2776.9 1800 2784.17 1823.46 2806 1836.04 2799.76 1847.26 2776.9 1851 2773.78 1847.6 2769.97 1845.56 2764.77 1834.68 2762 1822.1Z"
-            stroke="#FFFFFF" stroke-width="1.71893" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" />
-        <path
-            d="M2708 1827.74 2711.82 1809.08 2719.12 1788.35 2734.05 1788 2733.01 1811.5 2741 1813.92 2733.36 1828.43 2722.94 1835Z"
-            stroke="#FFFFFF" stroke-width="1.71893" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" />
-        <path
-            d="M2757.18 1884 2755.83 1875.85 2744.35 1874.83 2744.01 1866 2743 1858.87 2750.77 1849.7 2756.17 1848 2767.65 1861.59 2769 1880.6 2757.18 1884Z"
-            stroke="#FFFFFF" stroke-width="1.71893" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" />
-        <path d="M2741.41 1814 2762.3 1822.12 2765 1834.65 2764.66 1836 2735.68 1830.58 2734 1828.22Z" stroke="#FFFFFF"
-            stroke-width="1.71893" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" />
-        <path d="M2723.44 1834.46 2733.78 1828 2735.5 1830.38 2751 1849.76 2743.08 1858.6 2726.2 1862 2720 1860.98Z"
-            stroke="#FFFFFF" stroke-width="1.71893" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" />
-        <path
-            d="M2749.51 1888.14 2756 1907 2729.68 1889.51 2729 1885.4 2729.68 1884.37 2732.76 1883.69 2733.1 1883.69 2734.81 1883 2749.51 1888.14 2749.51 1888.14Z"
-            stroke="#FFFFFF" stroke-width="1.71893" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" />
-        <path d="M2726 1862.33 2742.66 1859 2743 1866 2743 1866.33 2736.54 1874 2726.68 1872.67Z" stroke="#FFFFFF"
-            stroke-width="1.71893" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" />
-        <path
-            d="M2724.93 1895.07 2724.24 1903.08 2718.44 1909 2714 1869.66 2719.46 1862 2725.27 1862.7 2726.29 1873.84 2726.29 1887.41 2728 1889.85 2724.93 1895.07Z"
-            stroke="#FFFFFF" stroke-width="1.71893" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" />
-        <path d="M2727 1884 2731.14 1883 2737 1874.33 2727 1873Z" stroke="#FFFFFF" stroke-width="1.71893"
-            stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" />
+        <g filter="url(#dropshadow2)">
+          <path
+            d="M3041.55 580.675 2860.16 648.535 2649.02 1241.88 2441.16 1137.32 2371.93 942.403 2213.55 707.819 2319.07 498.797 2249.85 422.444 2503.83 495.911 2599.54 334.877 2869.98 334.877 3041.55 580.675Z"
+            name="기장군"
+            stroke="#FFFFFF" strokeWidth="16.5292" strokeMiterlimit="8" />
+          <path d="M1708.38 1166.88 1848.55 1226.32 1815.92 1447.27 1767.07 1512.4 1597.55 1537.88 1597.55 1455.76Z"
+            name="사상구"
+            stroke="#FFFFFF" strokeWidth="16.5292" strokeMiterlimit="8" />
+          <path
+            d="M2253.8 1232.88 2300.74 1320.9 2297.67 1323.63 2319.56 1345.65 2266.37 1430.88 2175.56 1340.13 2250.73 1243.85Z"
+            name="수영구"
+            stroke="#FFFFFF" strokeWidth="16.5292" strokeMiterlimit="8" />
+          <path d="M1963.55 1191.88 2252.55 1238.16 2171.92 1339.55 2114.8 1356.88Z" stroke="#FFFFFF"
+            name="연제구"
+            strokeWidth="16.5292" strokeMiterlimit="8" />
+          <path
+            d="M1041.55 1674.44 1071.37 1708.55 1137.73 1887.33 1048.19 2122.88 912.097 1836.25 1031.55 1765.31 968.555 1731.2 1041.55 1674.44ZM1472.83 1646.1 1479.46 1648.9 1479.46 1657.47 1399.82 1719.92 1084.64 1705.66 1051.46 1674.44 1107.92 1572.28 895.554 1379.33 1190.83 1328.25 1243.92 1404.87 1280.47 1123.92 1751.55 1018.88 1715.1 1172.12 1715.1 1172.12 1598.92 1461.63 1598.92 1461.63 1486.1 1595.02 1472.83 1646.1Z"
+            name="강서구"
+            stroke="#FFFFFF" strokeWidth="16.5292" strokeMiterlimit="8" />
+          <path d="M2367.55 941.407 2225.46 1125.88 2020.6 1057.77 1944.55 1037.92 1954.46 844.972 2212.2 705.878Z"
+            name="금정구"
+            stroke="#FFFFFF" strokeWidth="16.5292" strokeMiterlimit="8" />
+          <path
+            d="M1562.92 1706.78 1482.55 1653.27 1482.55 1641.97 1492.57 1596.87 1492.57 1594.07 1589.71 1455.88 1589.71 1540.47 1763.74 1515.08 1800.55 1842.17 1653.31 1808.28 1649.94 1892.88 1582.96 1799.87 1562.92 1706.78Z"
+            name="사하구"
+            stroke="#FFFFFF" strokeWidth="16.5292" strokeMiterlimit="8" />
+          <path
+            d="M2223.55 1126.88 2366.8 944.878 2436.69 1138.08 2646.55 1241.68 2586.57 1334.08 2366.8 1364.88 2336.8 1336.88 2300.18 1320.08 2250.18 1230.48 2223.55 1126.88Z"
+            name="해운대구"
+            stroke="#FFFFFF" strokeWidth="16.5292" strokeMiterlimit="8" />
+          <path
+            d="M1703.55 1173.1 1740.36 1019.45 1810.71 848.76 1954.58 845.878 1944.56 1039.38 2021.55 1059.3 1947.93 1178.78 1847.52 1232.88Z"
+            name="북구"
+            stroke="#FFFFFF" strokeWidth="16.5292" strokeMiterlimit="8" />
+          <path
+            d="M2176.9 1636.88 2163.92 1569.87 2053.54 1561.48 2050.27 1488.88 2040.55 1430.25 2115.27 1354.86 2167.19 1340.88 2277.57 1452.62 2290.55 1608.92 2176.9 1636.88Z"
+            name="남구"
+            stroke="#FFFFFF" strokeWidth="16.5292" strokeMiterlimit="8" />
+          <path d="M2025.79 1059.88 2226.6 1127.05 2252.56 1230.71 2249.29 1241.88 1970.7 1197.04 1954.55 1177.51Z"
+            name="동래구"
+            stroke="#FFFFFF" strokeWidth="16.5292" strokeMiterlimit="8" />
+          <path
+            d="M1852.62 1229.08 1952.02 1175.88 1968.55 1195.48 2117.56 1355.08 2041.42 1427.88 1879.15 1455.88 1819.55 1447.48Z"
+            name="부산진구"
+            stroke="#FFFFFF" strokeWidth="16.5292" strokeMiterlimit="8" />
+          <path
+            d="M2103.06 1671.28 2165.55 1826.88 1912.1 1682.58 1905.55 1648.68 1912.1 1640.18 1941.76 1634.57 1945.04 1634.57 1961.5 1628.88 2103.06 1671.28 2103.06 1671.28Z"
+            name="영도구"
+            stroke="#FFFFFF" strokeWidth="16.5292" strokeMiterlimit="8" />
+          <path d="M1877.56 1458.4 2037.3 1430.88 2040.56 1488.74 2040.56 1491.47 1978.62 1554.88 1884.08 1543.88Z"
+            name="동구"
+            stroke="#FFFFFF" strokeWidth="16.5292" strokeMiterlimit="8" />
+          <path
+            d="M1866.95 1728.18 1860.29 1794.13 1804.37 1842.88 1761.55 1518.95 1814.2 1455.88 1870.23 1461.64 1880.06 1553.37 1880.06 1665.11 1896.55 1685.2 1866.95 1728.18Z"
+            name="서구"
+            stroke="#FFFFFF" strokeWidth="16.5292" strokeMiterlimit="8" />
+          <path d="M1886.56 1636.88 1926.3 1628.7 1982.56 1557.76 1886.56 1546.88Z" stroke="#FFFFFF"
+            name="중구"
+            strokeWidth="16.5292" strokeMiterlimit="8" />
         </g>
- 
+        <g filter="url(#dropshadow)">
+          <text
+            fontWeight="400"
+            className="mapfont TEXT"
+            x="2400.66"
+            y="795">기장군</text>
+          <text
+            fontWeight="400"
+            className="mapfont TEXT"
+            x="1696.09"
+            y="1360">사상구</text>
+          <text
+            fontWeight="400"
+            className="mapfont TEXT"
+            x="2220.55"
+            y="1389">수영구</text>
+          <text
+            fontWeight="400"
+            className="mapfont TEXT"
+            x="2051.01"
+            y="1302">연제구</text>
+          <text
+            fontWeight="400"
+            className="mapfont TEXT"
+            x="1296.74"
+            y="1478">강서구</text>
+          <text
+            fontWeight="400"
+            className="mapfont TEXT"
+            x="2079.13"
+            y="923">금정구</text>
+          <text
+            fontWeight="400"
+            className="mapfont TEXT"
+            x="1514.3"
+            y="1681">사하구</text>
+          <text
+            fontWeight="400"
+            className="mapfont TEXT"
+            x="2299.03"
+            y="1262">해운대구</text>
+          <text
+            fontWeight="400"
+            className="mapfont TEXT"
+            x="1774.79"
+            y="1047">북구</text>
+          <text
+            fontWeight="400"
+            className="mapfont TEXT"
+            x="2107.92"
+            y="1485">남구</text>
+          <text
+            fontWeight="400"
+            className="mapfont TEXT"
+            x="2026.2"
+            y="1168">동래구</text>
+          <text
+            fontWeight="400"
+            className="mapfont TEXT"
+            x="1902.31"
+            y="1373">진구</text>
+          <text
+            fontWeight="400"
+            className="mapfont TEXT"
+            x="2008.84"
+            y="1735">영도구</text>
+          <text
+            fontWeight="400"
+            className="mapfont TEXT"
+            x="1941.02"
+            y="1500">동구</text>
+          <text
+            fontWeight="400"
+            className="mapfont TEXT"
+            x="1761.11"
+            y="1657">서구</text>
+          <text
+            fontWeight="400" fontSize="14"
+            className="mapfont TEXT"
+            x="1921.55"
+            y="1597">중구</text>
+        </g>
       </svg>
     );
   }
