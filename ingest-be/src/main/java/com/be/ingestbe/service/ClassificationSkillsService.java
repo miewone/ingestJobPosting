@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ClassificationSkillsService {
-    // TODO 해당 classification 관련 서비스는 jobposting 서브스와 유사한 점이 많으므로 팩토리 메소드형식으로 리팩토링을 해보자.
     private final ClassificationSkillsRepository classificationSkillsRepository;
     private final ClassificationSkillsMapperRepository classificationSkillsMapperRepository;
     public List<ClassificationSkillsMapper> getskills(){

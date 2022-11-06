@@ -17,6 +17,7 @@ public record JobpostingDto(
         String location,
         String company
 ) implements Serializable {
+
     public static JobpostingDto of(
                          String job,
                          String career,
@@ -35,4 +36,10 @@ public record JobpostingDto(
                 job, career, employment_pattern, pay, skills, company_introduction, major_task, certified, preferential, hiring_process, benefits, location, company
         );
     }
+
+    public static  JobpostingDto of(String skills,String location){
+        return new JobpostingDto(null,null,null,null, skills,null,null,null,null,null, null, location, null);
+    }
+
+
 }
