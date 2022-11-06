@@ -59,9 +59,6 @@ path{
     fill: #f1c40f;
 }
 .TEXT {
-    fill: #000000;
-    font-size: 1.5hv;
-    font-weight: bold;
+    fill: #fcf5f5;
     text-anchor: middle;
-    alignment-baseline: middle;
 }
