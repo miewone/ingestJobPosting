@@ -23,10 +23,10 @@ module.exports = {
             {
                 test: /\.(png|jp(e*)g)$/,
                 use: [{
-                  loader: "url-loader",
-                //   options: { ...loaderOptions  }
+                    loader: "url-loader",
+                    //   options: { ...loaderOptions  }
                 }]
-              },
+            },
             {
                 test: /\.css$/,
                 use: [
@@ -52,11 +52,41 @@ module.exports = {
                     //     svgo: false,
                     //   },
                 },
-                // {
-                //     loader: 'url-loader'
-                // }
+                    // {
+                    //     loader: 'url-loader'
+                    // }
                 ],
             },
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },
+                    {
+                        loader: 'css-loader'
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: () => [
+                                    require('autoprefixer')
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true,
+                            sassOptions: {
+                                quietDeps: ["node_modules/bootstrap/**/*.scss"],
+                            }
+                        }
+                    }
+                ]
+            }
         ]
     },
     plugins: [
@@ -71,8 +101,8 @@ module.exports = {
         historyApiFallback: true,
         hot: true,
         proxy: {
-            '**': { 
-                target: 'http://localhost:8080/' ,
+            '**': {
+                target: 'http://localhost:8080/',
             }
 
         }

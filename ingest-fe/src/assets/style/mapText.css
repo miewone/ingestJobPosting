@@ -1,14 +1,31 @@
-.TEXT {
-    /* fill: rgb(0, 0, 0); */
-    stroke: rgb(255, 255, 255);
-    font-size: 1.1em;
-    /* font-weight: bold; */
-    /* text-anchor: middle; */
-    /* alignment-baseline: middle; */
+.mapfont{
+    font-size:4em;
+    font-weight: bold;
+    text-shadow: 3em;
 }
 
+.TEXT {
+    fill: #fcf5f5;
+}
+path {
+    fill :rgb(166, 166, 166);
+    stroke: white;
+    stroke-width: 2px;
+}
 
-
-path:hover{
-    fill: rgb(110, 138, 192);
+.OUTLINE {
+    stroke-linejoin:round;
+    stroke: #ffffff;
+    stroke-Width: 2;
+}
+.LINE {
+    stroke-linejoin:round;
+    stroke: #ffffff;
+    stroke-Width: 1;
+    fill: none;
+}
+.POINT {
+    stroke: #ffffff;
+    stroke-Width: 1;
+    fill: #ffffff;
 }

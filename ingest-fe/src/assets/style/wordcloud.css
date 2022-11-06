@@ -4,3 +4,85 @@ text:hover{
     font-weight: bold;
     background-color: white;
 }
+
+li {
+    list-style: none;
+    padding : 0;
+    display: list-item;
+    text-align:end;
+    margin: 0 8px 8px 0;
+}
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+.item-nav__list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.categoryAll{
+    vertical-align: middle;
+    border: 0 none;
+    background-color: transparent;
+    cursor: pointer;
+    font-family: 'Roboto', 'Noto Sans Korean', '돋움', dotum, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    padding: 0;
+    font-size: 16px;
+    line-height: 22px;
+    margin: 0 5px 0 0;
+    color: #323438;
+    font-weight: bold;
+}
+.more-button{
+    /* background: transparent;
+    border-radius: 4em;
+    width: 1px;
+    height: 17px;
+    position: relative;
+    overflow: hidden; */
+}
+.more-button .jp-chevron-down{
+    cursor: pointer;
+    background-color: transparent;
+    color: #a4a6ad;
+    font-size: 16px;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    transform: rotate(90deg);
+    transition: 0.4s;
+}
+
+.jp-chevron-down:before {
+    content: "\e931";
+}
+
+path:hover{
+    fill: rgb(110, 138, 192);
+    cursor: pointer;
+}
+.semiMap{
+    transition: 1s;
+}
+.dropdown-menu {
+    --bs-dropdown-min-width: 5rem;
+    /* --bs-dropdown-padding-x: 0; */
+}
+
+.dropdown-menu li:hover::before{
+    content: ">";
+}
