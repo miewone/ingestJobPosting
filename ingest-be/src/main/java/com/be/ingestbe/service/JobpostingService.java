@@ -57,6 +57,7 @@ public class JobpostingService {
                 .collect(Collectors.groupingBy(String::toString,Collectors.counting()));
     }
     private Boolean checkSkillInSkills(String skill,String targetSkill){
+        if(targetSkill==null || targetSkill.equals("")) return true;
         String[] posSkills = skill.split(",");
         for(String postSkill : posSkills) {
             if(postSkill.equals(targetSkill)){
