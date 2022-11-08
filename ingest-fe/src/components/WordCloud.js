@@ -19,7 +19,7 @@ import Incheon from "../assets/maps/si/Incheon"
 import Sejong from "../assets/maps/si/Sejong"
 import Seoul from "../assets/maps/si/Seoul"
 import Ulsan from "../assets/maps/si/Ulsan"
-
+import Modal from "../components/utils/Modal"
 import "../assets/style/wordcloud.css";
 let CounterKrLocations = "";
 
@@ -57,7 +57,7 @@ const WordCloud = () => {
     const [selectedSkill, setSelectSkill] = useState("");
     const [categoryNavIsActive, setCategoryNavIsActive] = useState(false);
     const [maxWord, setMaxWord] = useState(50);
-
+    const [modalOpen, setModalOpen] = useState(false);
     const testRef = useRef();
     // const [allLocations,setAllLocations] = useState({});
 
@@ -165,17 +165,30 @@ const WordCloud = () => {
     const callbacks = {
         onWordClick: searchLocationBySkill,
     };
+    const openModal = () => {
+        setModalOpen(true);
+      };
+      const closeModal = () => {
+        setModalOpen(false);
+      };
     return (
         <div>
             <div style={{ display: 'flex' }}>
                 <div>
                     <div>
-                        <input type="radio" class="btn-check" name="options-outlined" id="company" autocomplete="off" />
-                        <label class="btn btn-outline-success" for="company">회사</label>
-                        <input type="radio" class="btn-check" name="options-outlined" id="skill" autocomplete="off" onChange={getAllSkills} />
-                        <label class="btn btn-outline-success" for="skill">기술</label>
-                        <input type="radio" class="btn-check" name="options-outlined" id="location" autocomplete="off" onChange={getAllLocations} />
-                        <label class="btn btn-outline-success" for="location">지역</label>
+                        <button onClick={openModal}>모달팝업</button>
+                        {/* //header 부분에 텍스트를 입력한다. */}
+                        <Modal open={modalOpen} close={closeModal} header="지역">
+                             <main> 
+                                 {selectLocation && selectedLocation[selectLocation]}
+                             </main>
+                        </Modal>
+                        <input type="radio" className="btn-check" name="options-outlined" id="company" autocomplete="off" />
+                        <label className="btn btn-outline-success" for="company">회사</label>
+                        <input type="radio" className="btn-check" name="options-outlined" id="skill" autocomplete="off" onChange={getAllSkills} />
+                        <label className="btn btn-outline-success" for="skill">기술</label>
+                        <input type="radio" className="btn-check" name="options-outlined" id="location" autocomplete="off" onChange={getAllLocations} />
+                        <label className="btn btn-outline-success" for="location">지역</label>
                         {/* 
                         <label>
                             <input type="radio" value="1" name="test1" />
@@ -200,8 +213,8 @@ const WordCloud = () => {
                                     <li>
                                         {/* <input type="radio" name="category" onChange={() => getSkillsOfCategory(value)} /> */}
                                         {source && console.log(typeof (source))}
-                                        <input type="checkbox" class="btn-check" onChange={() => { getSkillsOfCategory(value) }} id={idx + value} autocomplete="off"></input>
-                                        <label class="btn btn-outline-secondary" for={idx + value}>{value}</label><br />
+                                        <input type="checkbox" className="btn-check" onChange={() => { getSkillsOfCategory(value) }} id={idx + value} autocomplete="off"></input>
+                                        <label className="btn btn-outline-secondary categorylist" for={idx + value}>{value}</label><br />
                                         {/* <button type="radio" name="category" onChange={() => getSkillsOfCategory(value)} /> */}
 
                                     </li>
@@ -222,12 +235,12 @@ const WordCloud = () => {
                     {pocusloations}
                 </div> */}
                 <div style={{width:"41%"}}>
-                    {categoryActive && <div class="btn-group" style={{display:"flex",flexDirection:"row-reverse"}}>
+                    {categoryActive && <div className="btn-group" style={{display:"flex",flexDirection:"row-reverse"}}>
                         <div>
-                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button className="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             단어 수
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul className="dropdown-menu">
                             <li onClick={() => {
                                 setMaxWord(50)
                                 console.log(maxWord)
@@ -249,10 +262,13 @@ const WordCloud = () => {
                     </div>}
 
                 </div>
-                <div style={{ display: 'flex', width: "50%", height: "100%" }}>
+                <div style={{ display: 'flex', width: "50%", height: "100%",alignItems:'center',justifyContent:'center' }}>
                     <div style={{ display: 'flex', width: "50%", height: "100%" }}>
                         <Mapkr
-                            click={(e) => { setSelectLocation(e.target[Object.keys(e.target)[1]].id) }}
+                            click={(e) => { 
+                                setSelectLocation(e.target[Object.keys(e.target)[1]].id) 
+                                openModal();
+                            }}
                             className="semiMap" selectedCallback={selectedLocationSkills} locations={locations}
                             ref={testRef}
                         />
@@ -270,8 +286,6 @@ const WordCloud = () => {
                         </div> */}
                     </div>
 
-
-                    {selectLocation && selectedLocation[selectLocation]}
                 </div>
 
 

@@ -86,3 +86,12 @@ path:hover{
 .dropdown-menu li:hover::before{
     content: ">";
 }
+
+
+.categorylist{
+    padding: 2px 5px 2px 5px;
+    font-weight: bold;
+}
+.categorylist:hover{
+    background: #979eac !important;
+}
