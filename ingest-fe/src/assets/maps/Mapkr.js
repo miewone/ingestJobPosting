@@ -31,6 +31,8 @@ class Mapkr extends React.Component {
           version="1.2"
           // preserveAspectRatio="none"
           onClick={this.props.click}
+          onMouseMove={this.props.hover}
+          onMouseLeave={this.props.leave}
           // onMouseOver={this.props.hover}
           ref={this.svgRef}
         >

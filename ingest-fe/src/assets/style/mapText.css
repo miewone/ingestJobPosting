@@ -29,3 +29,11 @@ path {
     stroke-Width: 1;
     fill: #ffffff;
 }
+
+.tip{
+    background: gray;
+    border: solid 2px;
+    border-radius: 2em;
+    padding: 0.1em;
+    transition: 1s;
+}
