@@ -2,6 +2,7 @@ package com.be.ingestbe.service;
 
 import com.be.ingestbe.domain.Jobposting;
 import com.be.ingestbe.dto.JobpostingDto;
+import com.be.ingestbe.feign.client.IngestFeignClient;
 import com.be.ingestbe.mapper.JobPostingSkillsMapper;
 import com.be.ingestbe.repository.JobPostingSkillsMapperRepository;
 import com.be.ingestbe.repository.JobpostingRepository;
@@ -20,6 +21,7 @@ public class JobpostingService {
     private final JobpostingRepository jobpostingRepository;
     private final JobPostingSkillsMapperRepository jobPostingSkillsMapperRepository;
 
+    private final IngestFeignClient ingestFeignClient;
 
     public List<Jobposting> Jobpostings(){
         return jobpostingRepository.findAll();
