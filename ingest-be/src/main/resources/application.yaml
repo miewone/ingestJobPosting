@@ -24,15 +24,15 @@ spring:
   sql.init.mode: always
 feign:
   url:
-    prefix: http://localhost:8080/jobinfo
+    prefix: http://localhost:8080/target_server
   client:
     config:
       default:
-        connectTimeout: 1000
-        readTimeout: 3000
+        connectTimeout: 10000
+        readTimeout: 30000
         loggerLevel: NONE
       ingest-client:
-        connectTimeout: 1000
+        connectTimeout: 10000
         readTimeout: 10000
         loggerLevel: HEADERS
 

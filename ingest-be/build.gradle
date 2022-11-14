@@ -20,6 +20,7 @@ repositories {
 
 ext {
     set('springCloudVersion','2021.0.3')
+    set('commonLangVersion','3.12.0')
 }
 
 dependencyManagement{
@@ -41,6 +42,7 @@ dependencies {
 
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
+    implementation "org.apache.commons:commons-lang3:${commonLangVersion}"
 //    implementation "com.querydsl:querydsl-jpa"
 //    implementation "com.querydsl:querydsl-core"
 //    implementation "com.querydsl:querydsl-collections"

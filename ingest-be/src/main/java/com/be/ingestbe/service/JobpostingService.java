@@ -7,6 +7,7 @@ import com.be.ingestbe.mapper.JobPostingSkillsMapper;
 import com.be.ingestbe.repository.JobPostingSkillsMapperRepository;
 import com.be.ingestbe.repository.JobpostingRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
