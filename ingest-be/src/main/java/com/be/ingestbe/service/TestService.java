@@ -16,4 +16,9 @@ public class TestService {
         System.out.println(response.getBody().getName());
         return "get";
     }
+
+    public String error(){
+        ingestFeignClient.callErrorDecoder();
+        return "error";
+    }
 }

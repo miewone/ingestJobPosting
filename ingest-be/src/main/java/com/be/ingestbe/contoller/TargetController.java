@@ -2,6 +2,8 @@ package com.be.ingestbe.contoller;
 
 import com.be.ingestbe.common.dto.BaseResponseInfo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,4 +21,10 @@ public class TargetController {
                 .name(name)
                 .build();
     }
+    @GetMapping("/error")
+    public ResponseEntity<BaseResponseInfo> demoErrorDecoder(){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+
 }

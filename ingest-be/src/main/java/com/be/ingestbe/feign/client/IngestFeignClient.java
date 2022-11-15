@@ -25,7 +25,8 @@ public interface IngestFeignClient {
     ResponseEntity<BaseResponseInfo> callGet(@RequestHeader("CustomHeader") String customHeader,
                                              @RequestParam("name") String name,
                                              @RequestParam("age") Long age);
-
+    @GetMapping("/error")
+    ResponseEntity<BaseResponseInfo> callErrorDecoder();
 
 //    @GetMapping("/all")
 //    ResponseEntity<BaseResponseInfo> callGet();

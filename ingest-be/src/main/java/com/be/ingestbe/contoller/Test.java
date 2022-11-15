@@ -22,4 +22,9 @@ public class Test {
     public String get(){
         return testService.demoGetTest();
     }
+
+    @GetMapping("/error")
+    public String errorDecoderController(){
+        return testService.error();
+    }
 }
