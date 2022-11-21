@@ -4,7 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import re
-from selenium.common.exceptions import ElementClickInterceptedException, StaleElementReferenceException
+from selenium.common.exceptions import ElementClickInterceptedException, StaleElementReferenceException, \
+    NoSuchElementException
 
 import time
 from queue import Queue
@@ -24,6 +25,13 @@ def check_title(page):
     try:
         page.find_element(By.CLASS_NAME,"jobs_title")
     except StaleElementReferenceException:
+        return False
+    return True
+
+def check_skills(drivers,selector):
+    try:
+        drivers.find_element(By.CSS_SELECTOR,selector)
+    except NoSuchElementException:
         return False
     return True
 
@@ -89,22 +97,31 @@ while not words.empty():
                 time.sleep(5)
                 page.click()
             else:
+                time.sleep(1)
                 searchedJob.append(title)
                 searchedCom.append(company)
-            test = driver.find_element(By.CSS_SELECTOR,"#job_search_app > div > div.job_search_content > section > div.job_search_detail > div > div > div > div.job_wrap_new.company_job_details > div > div.wrap > div > div > div.block_job_posting > section > div.recruitment-detail__box.recruitment-summary > dl > dd:nth-child(12)")
+            post_link = driver.current_url
+            isSkill = check_skills(driver,"#job_search_app > div > div.job_search_content > section > div.job_search_detail > div > div > div > div.job_wrap_new.company_job_details > div > div.wrap > div > div > div.block_job_posting > section > div.recruitment-detail__box.recruitment-summary > dl > dd:nth-child(12)")
+            if isSkill:
+                skills = driver.find_element(By.CSS_SELECTOR,"#job_search_app > div > div.job_search_content > section > div.job_search_detail > div > div > div > div.job_wrap_new.company_job_details > div > div.wrap > div > div > div.block_job_posting > section > div.recruitment-detail__box.recruitment-summary > dl > dd:nth-child(12)")
             title = re.sub('[\\/:*?"<>\|]',"_",title)
             with open('./jobplanet/{}_{}.html'.format(title,company),"w",encoding="UTF-8") as file:
-                dd = driver.find_element(By.CSS_SELECTOR, "#job_search_app > div > div.job_search_content > section > div.job_search_detail > div > div > div > div.job_wrap_new.company_job_details > div > div.wrap > div > div > div.block_job_posting > section").get_attribute('innerHTML')
+                dd = driver.find_element(By.CSS_SELECTOR,
+                                         "#job_search_app > div > div.job_search_content > section > div.job_search_detail > div > div > div > div.job_wrap_new.company_job_details > div > div.wrap > div > div > div.block_job_posting > section")\
+                                        .get_attribute('innerHTML')
+                url_innerHTML="<div class='post_link'>{}</div>".format(post_link)
+                dd+=url_innerHTML
                 file.write(dd)
-            with open('skills.txt', "a", encoding="UTF-8") as file:
-                for appendata in [data for data in test.text.split(",")]:
-                    text = appendata.replace(" ", "")
-                    if searchCnt > 50 :
-                        searchedFlag = True
-                    if text in finedWord and searchedFlag:
-                        continue
-                    file.write(text.replace(" ","") + "\n")
-                    words.put(text)
+            if isSkill:
+                with open('skills.txt', "a", encoding="UTF-8") as file:
+                    for appendata in [data for data in skills.text.split(",")]:
+                        text = appendata.replace(" ", "")
+                        if searchCnt > 50 :
+                            searchedFlag = True
+                        if text in finedWord and searchedFlag:
+                            continue
+                        file.write(text.replace(" ","") + "\n")
+                        words.put(text)
         if maxPage != 2 and driver.execute_script('return document.querySelector("#job_search_app > div > div.job_search_content > section > div.job_search_list > div.jply_pagination_ty1 > button.active").nextElementSibling != null'):
             driver.execute_script('document.querySelector(".jply_pagination_ty1 button.active").nextElementSibling.click();')
         time.sleep(2.5)
