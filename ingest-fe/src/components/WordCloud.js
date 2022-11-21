@@ -187,6 +187,9 @@ const WordCloud = () => {
                         <input type="radio" className="btn-check" name="options-outlined" id="company" autoComplete="off" />
                         <label className="btn btn-outline-success" for="company">회사</label>
                         <input type="radio" className="btn-check" name="options-outlined" id="skill" autoComplete="off" onChange={getAllSkills} />
+                        <input type="radio" className="btn-check" name="options-outlined" id="jobs" autoComplete="off" />
+                        <label className="btn btn-outline-success" for="jobs">직무</label>
+                        <input type="radio" className="btn-check" name="options-outlined" id="skill" autoComplete="off" onChange={getAllSkills} />
                         <label className="btn btn-outline-success" for="skill">기술</label>
                         <input type="radio" className="btn-check" name="options-outlined" id="location" autoComplete="off" onChange={getAllLocations} />
                         <label className="btn btn-outline-success" for="location">지역</label>
@@ -240,6 +243,7 @@ const WordCloud = () => {
                     </div>
                     <div>
                         
+
                         {categoryActive && <div className="btn-group" style={{display:"flex",flexDirection:"row-reverse"}}>
                             <div>
                             <button className="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -249,6 +253,7 @@ const WordCloud = () => {
                                 <li onClick={() => {setMaxWord(50)}}>50</li>
                                 <li onClick={() => {setMaxWord(100)}}>100</li>
                                 <li onClick={() => {setMaxWord(150)}}>150</li>
+                                <li> <input type="text"/></li>
                             </ul>
                             </div>
                             

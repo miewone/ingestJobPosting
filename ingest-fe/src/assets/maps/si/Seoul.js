@@ -13,8 +13,6 @@ class Seoul extends React.Component {
   }
   componentDidMount(){
     this.props.selectedCallback(here,this.props.skill);
-    console.log("여기야!!")
-    console.log(this.props.locations);
     Object.values(this.svgRef["current"].childNodes[1].childNodes).map(value => {
       value.style.fill = `${this.props.locations[Object.entries(value)[1][1].name] ? `hsl(10 100% ${68-Math.log2(this.props.locations[Object.entries(value)[1][1].name])*5}%)`:'rgb(166, 166, 166)'}`
     })
@@ -22,7 +20,6 @@ class Seoul extends React.Component {
   componentDidUpdate(prevProps) {
     
     if (this.props.locations !== prevProps.locations) {
-      console.log("여기야!!222")
       Object.values(this.svgRef["current"].childNodes[1].childNodes).map(value => {
         value.style.fill = `${this.props.locations[Object.entries(value)[1][1].name] ? `hsl(10 100% ${68-Math.log2(this.props.locations[Object.entries(value)[1][1].name])*5}%)`:'rgb(166, 166, 166)'}`
       })
