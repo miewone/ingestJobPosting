@@ -3,10 +3,12 @@ package com.be.ingestbe.repository;
 
 import com.be.ingestbe.domain.Jobposting;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RepositoryRestController
 public interface JobPostingRepository extends
@@ -15,5 +17,5 @@ public interface JobPostingRepository extends
     List<Jobposting> findAll();
     List<Jobposting> findAllBySkillsContaining(String skill);
 
-    Page<Jobposting> findAllBySkillsContainingAndLocationContaining(String skill,String location);
+    Optional<Page<Jobposting>> findAllBySkillsContainingAndLocationContaining(String skill, String location, Pageable pageable);
 }

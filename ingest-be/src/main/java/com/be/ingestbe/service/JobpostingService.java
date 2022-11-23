@@ -9,9 +9,12 @@ import com.be.ingestbe.mapper.JobPostingSkillsMapper;
 import com.be.ingestbe.repository.JobPostingSkillsMapperRepository;
 import com.be.ingestbe.repository.JobPostingRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,8 +28,12 @@ public class JobpostingService {
 
     private final IngestFeignClient ingestFeignClient;
 
-    public List<Jobposting> Jobpostings(){
-        return jobpostingRepository.findAll();
+    public List<JobPostingDto> Jobpostings(){
+        return jobpostingRepository
+                .findAll()
+                .stream()
+                .map(JobPostingDto::from)
+                .toList();
     }
 
 
@@ -68,6 +75,18 @@ public class JobpostingService {
                 .filter(post -> checkSkillInSkills(post.getSkills(),lowerCase))
                 .map(obj -> counterLocations(obj.getLocation(),false))
                 .collect(Collectors.groupingBy(String::toString,Collectors.counting()));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<JobPostingDto> getAll(String searchType, JobPostingDto body, Pageable pageable) {
+        if ((body.skills() == null && body.location() == null) || (body.skills().isBlank() && body.location().isBlank())){
+            getSelectedLocationAndSkills(body); //TODO Pageable 하게끔 수정해야합니다.
+        }
+        Optional<Page<Jobposting>> pageableSearchSkillAndLocations = jobpostingRepository.findAllBySkillsContainingAndLocationContaining(body.skills(), body.location(), pageable);
+
+        return pageableSearchSkillAndLocations
+                .orElseThrow(()->new CustomException(CodeEnum.PARAMETER_ERROR))
+                .map(JobPostingDto::from);
     }
     private Boolean checkSkillInSkills(String skill,String targetSkill){
         if(targetSkill==null || targetSkill.equals("")) return true;

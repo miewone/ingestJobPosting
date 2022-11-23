@@ -19,7 +19,7 @@ public class JobpostingController {
 
 
     @GetMapping("/all")
-    public List<Jobposting> jobPostings(){
+    public List<JobPostingDto> jobPostings(){
         return jobpostingService.Jobpostings();
     }
 

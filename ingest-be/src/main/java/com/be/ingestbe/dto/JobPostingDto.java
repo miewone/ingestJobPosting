@@ -1,5 +1,6 @@
 package com.be.ingestbe.dto;
 
+import com.be.ingestbe.domain.Jobposting;
 import lombok.Builder;
 
 import java.io.Serializable;
@@ -44,5 +45,21 @@ public record JobPostingDto(
         return new JobPostingDto(null,null,null,null, skills,null,null,null,null,null, null, location, null);
     }
 
-
+    public static JobPostingDto from(Jobposting entity) {
+        return new JobPostingDto(
+                entity.getJob(),
+                entity.getCareer(),
+                entity.getEmployment_pattern(),
+                entity.getPay(),
+                entity.getSkills(),
+                entity.getCompany_introduction(),
+                entity.getMajor_task(),
+                entity.getCertified(),
+                entity.getPreferential(),
+                entity.getHiring_process(),
+                entity.getBenefits(),
+                entity.getLocation(),
+                entity.getCompany()
+        );
+    }
 }
