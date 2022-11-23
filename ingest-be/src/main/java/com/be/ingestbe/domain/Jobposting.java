@@ -44,6 +44,12 @@ public class Jobposting {
     @Column(length = 30)
     private String company;
 
+    @Column(length = 300)
+    private String url;
+
+    @Column(length = 50)
+    private String title;
+
     protected Jobposting(){}
 
     private Jobposting(String job,
@@ -58,7 +64,10 @@ public class Jobposting {
                     String hiring_process,
                     String benefits,
                     String location,
-                    String company){
+                    String company,
+                    String url,
+                    String title
+                       ){
         this.job = job;
         this.career = career;
         this.employment_pattern = employment_pattern;
@@ -72,6 +81,8 @@ public class Jobposting {
         this.benefits = benefits;
         this.location = location;
         this.company = company;
+        this.title= title;
+        this.url = url;
     }
 
     public static Jobposting of(String job,
@@ -86,8 +97,10 @@ public class Jobposting {
                              String hiring_process,
                              String benefits,
                              String location,
-                             String company) {
-        return new Jobposting(job, career, employment_pattern,pay, skills, company_introduction, major_task, certified, preferential, hiring_process, benefits, location, company);
+                             String company,
+                             String url,
+                             String title) {
+        return new Jobposting(job, career, employment_pattern,pay, skills, company_introduction, major_task, certified, preferential, hiring_process, benefits, location, company,url,title);
     }
 
     @Override

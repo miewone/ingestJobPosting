@@ -1,0 +1,17 @@
+<included>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <appender name="CONSOLE2" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <layout>
+            <pattern>
+                [CONSOLE2] [%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] [%logger{0}:%line] - %msg%n
+            </pattern>
+        </layout>
+    </appender>
+    <root level="DEBUG">
+<!--        <appender-ref ref="CONSOLE"/>-->
+        <appender-ref ref="CONSOLE2"/>
+    </root>
+</included>

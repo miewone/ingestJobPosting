@@ -1,8 +1,11 @@
 package com.be.ingestbe.dto;
 
+import lombok.Builder;
+
 import java.io.Serializable;
 
-public record JobpostingDto(
+@Builder
+public record JobPostingDto(
         String job,
         String career,
         String employment_pattern,
@@ -18,7 +21,7 @@ public record JobpostingDto(
         String company
 ) implements Serializable {
 
-    public static JobpostingDto of(
+    public static JobPostingDto of(
                          String job,
                          String career,
                          String employment_pattern,
@@ -32,13 +35,13 @@ public record JobpostingDto(
                          String benefits,
                          String location,
                          String company) {
-        return new JobpostingDto(
+        return new JobPostingDto(
                 job, career, employment_pattern, pay, skills, company_introduction, major_task, certified, preferential, hiring_process, benefits, location, company
         );
     }
 
-    public static  JobpostingDto of(String skills,String location){
-        return new JobpostingDto(null,null,null,null, skills,null,null,null,null,null, null, location, null);
+    public static JobPostingDto of(String skills, String location){
+        return new JobPostingDto(null,null,null,null, skills,null,null,null,null,null, null, location, null);
     }
 
 

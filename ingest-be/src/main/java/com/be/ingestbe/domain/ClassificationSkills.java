@@ -22,15 +22,6 @@ public class ClassificationSkills {
 
     protected ClassificationSkills(){}
 
-    private ClassificationSkills(String category, String skill){
-        this.category= category;
-        this.skill = skill;
-    }
-
-    public static ClassificationSkills of(String category,String skill){
-        return new ClassificationSkills(category,skill);
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

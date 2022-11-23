@@ -30,7 +30,7 @@ class JobInfoControllerTest {
         // Given
 
         // When & Then
-        mvc.perform(get("/Jobposting/all"))
+        mvc.perform(get("/jobinfo/all"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andDo(print());
@@ -41,7 +41,7 @@ class JobInfoControllerTest {
         // Given
 
         // When & Then
-        mvc.perform(get("/Jobposting/skills"))
+        mvc.perform(get("/jobinfo/skills"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andDo(print());

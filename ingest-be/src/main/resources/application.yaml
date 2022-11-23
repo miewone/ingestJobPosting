@@ -22,6 +22,20 @@ spring:
       hibernate.format_sql: true
       hibernate.default_batch_fetch_size: 100
   sql.init.mode: always
+feign:
+  url:
+    prefix: http://localhost:8080/target_server
+  client:
+    config:
+      default:
+        connectTimeout: 10000
+        readTimeout: 30000
+        loggerLevel: NONE
+      ingest-client:
+        connectTimeout: 10000
+        readTimeout: 10000
+        loggerLevel: HEADERS
+
 #  data.rest:
 #    base-path: /api
 #    detection-strategy: annotated

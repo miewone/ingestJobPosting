@@ -5,11 +5,12 @@ import com.be.ingestbe.mapper.JobPostingSkillsMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface JobPostingSkillsMapperRepository extends JpaRepository<Jobposting,String> {
     List<JobPostingSkillsMapper> findAllBy();
-    List<JobPostingSkillsMapper> findAllBySkillsContaining(String keyword);
+    Optional<List<JobPostingSkillsMapper>> findAllBySkillsContaining(String keyword);
 
-    List<JobPostingSkillsMapper> findAllBySkillsContainingAndLocationContaining(String skill,String location);
+    Optional<List<JobPostingSkillsMapper>> findAllBySkillsContainingAndLocationContaining(String skill, String location);
 
 }
