@@ -1,14 +1,13 @@
 package com.be.ingestbe.service;
 
 import com.be.ingestbe.repository.JobPostingSkillsMapperRepository;
-import com.be.ingestbe.repository.JobpostingRepository;
+import com.be.ingestbe.repository.JobPostingRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,7 @@ class JobpostingServiceTest {
     @InjectMocks
     private JobpostingService sut;
     @Mock
-    private JobpostingRepository jobpostingRepository;
+    private JobPostingRepository jobpostingRepository;
     @Mock
     private JobPostingSkillsMapperRepository jobPostingSkillsMapperRepository;
 
@@ -44,7 +43,7 @@ class JobpostingServiceTest {
     }
     @DisplayName("스킬 검색어로 포스팅을 검색하면 스킬과 지역들을 해쉬맵 형식으로 반환.")
     @Test
-    void givenSearchKeyword_whenSearchingJobPosting_thenReturnJobPosting(){
+    void givenSearchKeyword_whenSearchingJobPosting_thenReturnJobPosting() throws Exception {
         // Given
         String searchKeyword = "java";
         // When
