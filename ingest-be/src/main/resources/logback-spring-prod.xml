@@ -11,7 +11,7 @@
             <pattern>
                 [REQUEST1]  ${LOG_PATTERN}
             </pattern>
-            <outputPatternAsHeader>true</outputPatternAsHeader>
+<!--            <outputPatternAsHeader>true</outputPatternAsHeader>-->
         </encoder>
     </appender>
     <appender name="REQUEST2" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -25,7 +25,7 @@
             <pattern>
                 [REQUEST2]  ${LOG_PATTERN}
             </pattern>
-            <outputPatternAsHeader>true</outputPatternAsHeader>
+<!--            <outputPatternAsHeader>true</outputPatternAsHeader>-->
         </encoder>
     </appender>
 
@@ -40,12 +40,76 @@
             <pattern>
                 [MDC] %X{job}%n <!-- mdc안에 있는 키로 조회를 할 수 있다.-->
             </pattern>
-            <outputPatternAsHeader>true</outputPatternAsHeader>
+<!--            <outputPatternAsHeader>true</outputPatternAsHeader>-->
+        </encoder>
+    </appender>
+
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/error.log</file> <!-- 파일 경로 지정-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+<!--            <onMismatch></onMismatch>--> <!--맞지 않는 것만-->
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/archive/error.%d{yyyy-MM-dd}_%i.log</fileNamePattern> <!-- 포맷 지정-->
+            <maxFileSize>10KB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                [ERROR] %X{job}%n <!-- mdc안에 있는 키로 조회를 할 수 있다.-->
+            </pattern>
+<!--            <outputPatternAsHeader>true</outputPatternAsHeader>-->
+        </encoder>
+    </appender>
+
+    <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/warn.log</file> <!-- 파일 경로 지정-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+<!--            <onMismatch></onMismatch>--> <!--맞지 않는 것만-->
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/archive/warn.%d{yyyy-MM-dd}_%i.log</fileNamePattern> <!-- 포맷 지정-->
+            <maxFileSize>10KB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                [WARN] %X{job}%n <!-- mdc안에 있는 키로 조회를 할 수 있다.-->
+            </pattern>
+<!--            <outputPatternAsHeader>true</outputPatternAsHeader>-->
+        </encoder>
+    </appender>
+    <appender name="QUERY" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/query.log</file> <!-- 파일 경로 지정-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/archive/query.%d{yyyy-MM-dd}_%i.log</fileNamePattern> <!-- 포맷 지정-->
+            <maxFileSize>10KB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                [QUERY]  ${LOG_PATTERN}
+            </pattern>
+<!--            <outputPatternAsHeader>true</outputPatternAsHeader>-->
         </encoder>
     </appender>
     <root level="INFO">
 <!--        <appender-ref ref="REQUEST1"/>-->
 <!--        <appender-ref ref="REQUEST2"/>-->
-        <appender-ref ref="MDC"/>
+<!--        <appender-ref ref="MDC"/>-->
+        <appender-ref ref="ERROR"/>
     </root>
+
+    <logger name="SQL_LOG1" level="INFO" additivitty="false">
+        <appender-ref ref="QUERY"/>
+    </logger>
+
+    <logger name="SQL_LOG2" level="INFO" additivitty="false">
+        <appender-ref ref="QUERY"/>
+    </logger>
+
 </included>

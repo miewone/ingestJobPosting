@@ -21,4 +21,8 @@ public class TestService {
         ingestFeignClient.callErrorDecoder();
         return "error";
     }
+
+    public String exception(){
+        return "exception";
+    }
 }
