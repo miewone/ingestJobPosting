@@ -3,29 +3,22 @@ package com.be.ingestbe.repository;
 import com.be.ingestbe.domain.Jobposting;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-
-import javax.persistence.EntityManager;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-
 
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class JobpostingRepositoryTest {
+class JobPostingRepositoryTest {
 
-    private final JobpostingRepository jobpostingRepository;
+    private final JobPostingRepository jobpostingRepository;
 
-    JobpostingRepositoryTest(@Autowired JobpostingRepository jobpostingRepository){
+    JobPostingRepositoryTest(@Autowired JobPostingRepository jobpostingRepository){
         this.jobpostingRepository = jobpostingRepository;
     }
 
