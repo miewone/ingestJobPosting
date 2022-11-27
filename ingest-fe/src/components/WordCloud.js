@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, memo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactWordcloud from "react-wordcloud";
 import axios from 'axios';
 import Mapkr from "../assets/maps/Mapkr"
@@ -20,6 +20,7 @@ import Sejong from "../assets/maps/si/Sejong"
 import Seoul from "../assets/maps/si/Seoul"
 import Ulsan from "../assets/maps/si/Ulsan"
 import Modal from "../components/utils/Modal"
+import JobPostingList from './JobPostingList';
 import "../assets/style/wordcloud.css";
 let CounterKrLocations = "";
 
@@ -140,23 +141,23 @@ const WordCloud = () => {
         setSource(sourcies);
     }
     const selectedLocation = {
-        "CD43": <Chungcheongbuk className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD44": <Chungcheongnam className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD42": <Gangwon className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD41": <Gyeonggl className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD47": <Gyeosangbuk className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD48": <Gyeosangnam className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD50": <Jejuo className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD45": <Jeonlabukdo className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD46": <Jeonranamdo className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD26": <Busan className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD25": <Seoul className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD27": <Daegu className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD30": <Daijeon className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD29": <Gwangju className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD28": <Incheon className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD36": <Sejong className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD31": <Ulsan className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />
+        "충청북도": <Chungcheongbuk className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "충청남도": <Chungcheongnam className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "강원도": <Gangwon className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "경기": <Gyeonggl className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "경상북도": <Gyeosangbuk className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "경상남도": <Gyeosangnam className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "제주도": <Jejuo className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "전라북도": <Jeonlabukdo className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "전라남도": <Jeonranamdo className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "부산": <Busan className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "서울": <Seoul className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "대구": <Daegu className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "대전": <Daijeon className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "광주": <Gwangju className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "인천": <Incheon className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "세종": <Sejong className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "울산": <Ulsan className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />
     }
 
     const callbacks = {
@@ -173,17 +174,17 @@ const WordCloud = () => {
             <div style={{ display: 'flex' }}>
                 <div>
                     <div>
-                        <Modal open={modalOpen} close={closeModal} header="지역">
+                        {selectLocation && <Modal open={modalOpen} close={closeModal} header={selectLocation}>
                              <main style={{display:"flex"}}>  
                                 <div style={{width:"50%",display:"flex",alignContent:"center",justifyContent:"center"}}>
 
                                  {selectLocation && selectedLocation[selectLocation]}
                                 </div>
                                  <div style={{width:"50%"}}>
-                                    <div>hi</div>
+                                    <JobPostingList skill={selectedSkill} location={selectLocation}/>
                                  </div>
                              </main>
-                        </Modal>
+                        </Modal>}
                         <input type="radio" className="btn-check" name="options-outlined" id="company" autoComplete="off" />
                         <label className="btn btn-outline-success" for="company">회사</label>
                         <input type="radio" className="btn-check" name="options-outlined" id="skill" autoComplete="off" onChange={getAllSkills} />
