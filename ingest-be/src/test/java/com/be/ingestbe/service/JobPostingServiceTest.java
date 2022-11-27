@@ -1,5 +1,8 @@
 package com.be.ingestbe.service;
 
+import com.be.ingestbe.dto.JobPostingDto;
+import com.be.ingestbe.dto.SearchSemiPostingDto;
+import com.be.ingestbe.enums.SearchType;
 import com.be.ingestbe.repository.JobPostingSkillsMapperRepository;
 import com.be.ingestbe.repository.JobPostingRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -8,6 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Map;
@@ -17,10 +22,10 @@ import static org.mockito.BDDMockito.then;
 
 
 @ExtendWith(MockitoExtension.class)
-class JobpostingServiceTest {
+class JobPostingServiceTest {
 
     @InjectMocks
-    private JobpostingService sut;
+    private JobPostingService sut;
     @Mock
     private JobPostingRepository jobpostingRepository;
     @Mock
@@ -69,6 +74,23 @@ class JobpostingServiceTest {
         assertThat(jobPostingSkillsMappings).isEmpty();
 
         then(jobPostingSkillsMapperRepository).should().findAllBy();
+    }
+
+    @DisplayName("지역의 상세 공고를 페이징 기능을 구현")
+    @Test
+    void givenSkillsAndLocation_whenSearchingPosting_thenReturnPostings(){
+        // Given
+        SearchType searchType = SearchType.SKILL;
+        SearchSemiPostingDto body = SearchSemiPostingDto.of(searchType.name(),"java","강남");
+        Pageable pageable = Pageable.ofSize(20);
+        // When
+        Page<JobPostingDto> jobPostingSkillsAndLocation = sut.searchSemiJobPostings(body,pageable);
+
+
+        // Then
+        assertThat(jobPostingSkillsAndLocation).isEmpty();
+
+        then(jobpostingRepository).should().findAllBySkillsContainingAndLocationContaining(body.skill(),body.location(),pageable);
     }
 
 

@@ -1,7 +1,7 @@
 package com.be.ingestbe.service;
 
-import com.be.ingestbe.domain.Jobposting;
 import com.be.ingestbe.dto.JobPostingDto;
+import com.be.ingestbe.dto.SearchSemiPostingDto;
 import com.be.ingestbe.enums.CodeEnum;
 import com.be.ingestbe.exception.CustomException;
 import com.be.ingestbe.feign.client.IngestFeignClient;
@@ -9,6 +9,8 @@ import com.be.ingestbe.mapper.JobPostingSkillsMapper;
 import com.be.ingestbe.repository.JobPostingSkillsMapperRepository;
 import com.be.ingestbe.repository.JobPostingRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,15 +20,19 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class JobpostingService {
+public class JobPostingService {
 
     private final JobPostingRepository jobpostingRepository;
     private final JobPostingSkillsMapperRepository jobPostingSkillsMapperRepository;
 
     private final IngestFeignClient ingestFeignClient;
 
-    public List<Jobposting> Jobpostings(){
-        return jobpostingRepository.findAll();
+    public List<JobPostingDto> Jobpostings(){
+        return jobpostingRepository
+                .findAll()
+                .stream()
+                .map(JobPostingDto::from)
+                .toList();
     }
 
 
@@ -68,6 +74,12 @@ public class JobpostingService {
                 .filter(post -> checkSkillInSkills(post.getSkills(),lowerCase))
                 .map(obj -> counterLocations(obj.getLocation(),false))
                 .collect(Collectors.groupingBy(String::toString,Collectors.counting()));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<JobPostingDto> searchSemiJobPostings(SearchSemiPostingDto body, Pageable pageable) {
+        Page<JobPostingDto> rr = jobpostingRepository.findAllBySkillsContainingAndLocationContaining(body.skill(), body.location(), pageable).map(JobPostingDto::from);
+        return jobpostingRepository.findAllBySkillsContainingAndLocationContaining(body.skill(), body.location(), pageable).map(JobPostingDto::from);
     }
     private Boolean checkSkillInSkills(String skill,String targetSkill){
         if(targetSkill==null || targetSkill.equals("")) return true;

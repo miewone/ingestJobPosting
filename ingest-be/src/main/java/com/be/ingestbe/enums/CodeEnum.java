@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum CodeEnum {
     SUCCESS("200","SUCCESS"),
     PARAMETER_ERROR("405","PARAMETER_ERROR"),
+    EMPTY_ERROR("406","EMPTY_ERROR"),
     UNKNOWN_ERROR("999","UNKNOWN_ERROR");
 
     private String code;
