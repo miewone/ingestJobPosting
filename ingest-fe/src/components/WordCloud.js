@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, memo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactWordcloud from "react-wordcloud";
 import axios from 'axios';
 import Mapkr from "../assets/maps/Mapkr"
@@ -20,6 +20,7 @@ import Sejong from "../assets/maps/si/Sejong"
 import Seoul from "../assets/maps/si/Seoul"
 import Ulsan from "../assets/maps/si/Ulsan"
 import Modal from "../components/utils/Modal"
+import JobPostingList from './JobPostingList';
 import "../assets/style/wordcloud.css";
 let CounterKrLocations = "";
 
@@ -59,12 +60,13 @@ const WordCloud = () => {
     const [maxWord, setMaxWord] = useState(50);
     const [modalOpen, setModalOpen] = useState(false);
     const testRef = useRef();
+    const [xy,setXY]=useState({x:0,y:0})
+    const [tipVisible,setTipVisible] = useState(false);
     // const [allLocations,setAllLocations] = useState({});
 
 
 
     const selectedLocationSkills = async (location, skill) => {
-        console.log(location + "," + skill)
         await axios.post("/jobinfo/semilocation",
             {
                 "location": location,
@@ -106,7 +108,8 @@ const WordCloud = () => {
     };
     const getAllLocations = async () => {
         // isActive = false;
-        setSource([])
+        setSource([]);
+        setSelectSkill("");
         categoryActive = false;
         await axios.get('/jobinfo/exposebylocation')
             .then((res) => {
@@ -118,8 +121,6 @@ const WordCloud = () => {
     };
     const getSkillsOfCategory = async (category) => {
         if (selectedCategory.includes(category)) {
-            console.log("응 포함");
-            console.log(category);
             selectedCategory = selectedCategory.filter(value => value != category)
         } else {
             selectedCategory.push(category);
@@ -137,29 +138,26 @@ const WordCloud = () => {
                     console.log(err)
                 });
         }
-        console.log(sourcies);
-        await setSource(sourcies);
-        console.log("source");
-        console.log(source);
+        setSource(sourcies);
     }
     const selectedLocation = {
-        "CD43": <Chungcheongbuk className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD44": <Chungcheongnam className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD42": <Gangwon className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD41": <Gyeonggl className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD47": <Gyeosangbuk className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD48": <Gyeosangnam className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD50": <Jejuo className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD45": <Jeonlabukdo className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD46": <Jeonranamdo className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD26": <Busan className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD25": <Seoul className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD27": <Daegu className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD30": <Daijeon className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD29": <Gwangju className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD28": <Incheon className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD36": <Sejong className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
-        "CD31": <Ulsan className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />
+        "충청북도": <Chungcheongbuk className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "충청남도": <Chungcheongnam className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "강원도": <Gangwon className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "경기": <Gyeonggl className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "경상북도": <Gyeosangbuk className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "경상남도": <Gyeosangnam className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "제주도": <Jejuo className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "전라북도": <Jeonlabukdo className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "전라남도": <Jeonranamdo className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "부산": <Busan className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "서울": <Seoul className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "대구": <Daegu className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "대전": <Daijeon className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "광주": <Gwangju className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "인천": <Incheon className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "세종": <Sejong className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />,
+        "울산": <Ulsan className="semiMap" selectedCallback={selectedLocationSkills} locations={semiLocation} skill={selectedSkill} />
     }
 
     const callbacks = {
@@ -176,18 +174,25 @@ const WordCloud = () => {
             <div style={{ display: 'flex' }}>
                 <div>
                     <div>
-                        <button onClick={openModal}>모달팝업</button>
-                        {/* //header 부분에 텍스트를 입력한다. */}
-                        <Modal open={modalOpen} close={closeModal} header="지역">
-                             <main> 
+                        {selectLocation && <Modal open={modalOpen} close={closeModal} header={selectLocation}>
+                             <main style={{display:"flex"}}>  
+                                <div style={{width:"50%",display:"flex",alignContent:"center",justifyContent:"center"}}>
+
                                  {selectLocation && selectedLocation[selectLocation]}
+                                </div>
+                                 <div style={{width:"50%"}}>
+                                    <JobPostingList skill={selectedSkill} location={selectLocation}/>
+                                 </div>
                              </main>
-                        </Modal>
-                        <input type="radio" className="btn-check" name="options-outlined" id="company" autocomplete="off" />
+                        </Modal>}
+                        <input type="radio" className="btn-check" name="options-outlined" id="company" autoComplete="off" />
                         <label className="btn btn-outline-success" for="company">회사</label>
-                        <input type="radio" className="btn-check" name="options-outlined" id="skill" autocomplete="off" onChange={getAllSkills} />
+                        <input type="radio" className="btn-check" name="options-outlined" id="skill" autoComplete="off" onChange={getAllSkills} />
+                        <input type="radio" className="btn-check" name="options-outlined" id="jobs" autoComplete="off" />
+                        <label className="btn btn-outline-success" for="jobs">직무</label>
+                        <input type="radio" className="btn-check" name="options-outlined" id="skill" autoComplete="off" onChange={getAllSkills} />
                         <label className="btn btn-outline-success" for="skill">기술</label>
-                        <input type="radio" className="btn-check" name="options-outlined" id="location" autocomplete="off" onChange={getAllLocations} />
+                        <input type="radio" className="btn-check" name="options-outlined" id="location" autoComplete="off" onChange={getAllLocations} />
                         <label className="btn btn-outline-success" for="location">지역</label>
                         {/* 
                         <label>
@@ -207,20 +212,6 @@ const WordCloud = () => {
                         <button className="categoryAll" onClick={() => { setCategoryNavIsActive(!categoryNavIsActive) }}>전체</button>
                         <button className="more-button" onClick={() => { setCategoryNavIsActive(!categoryNavIsActive) }} type="button"><i className="jp-chevron-down"></i></button>
                         {/* <div style={{ display: 'flex', flexDirection: "row" }}> */}
-                        {categoryNavIsActive && <ul className="item-nav__list">
-                            {category && category.map((value, idx) => {
-                                return (
-                                    <li>
-                                        {/* <input type="radio" name="category" onChange={() => getSkillsOfCategory(value)} /> */}
-                                        {source && console.log(typeof (source))}
-                                        <input type="checkbox" className="btn-check" onChange={() => { getSkillsOfCategory(value) }} id={idx + value} autocomplete="off"></input>
-                                        <label className="btn btn-outline-secondary categorylist" for={idx + value}>{value}</label><br />
-                                        {/* <button type="radio" name="category" onChange={() => getSkillsOfCategory(value)} /> */}
-
-                                    </li>
-                                )
-                            })}
-                        </ul>}
                     </div>}
 
                 </div>
@@ -235,40 +226,76 @@ const WordCloud = () => {
                     {pocusloations}
                 </div> */}
                 <div style={{width:"41%"}}>
-                    {categoryActive && <div className="btn-group" style={{display:"flex",flexDirection:"row-reverse"}}>
-                        <div>
-                        <button className="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            단어 수
-                        </button>
-                        <ul className="dropdown-menu">
-                            <li onClick={() => {
-                                setMaxWord(50)
-                                console.log(maxWord)
-                                }}>50</li>
-                            <li onClick={() => {setMaxWord(100)}}>100</li>
-                            <li onClick={() => {setMaxWord(150)}}>150</li>
-                        </ul>
-                        </div>
+                    <div>
+                    {categoryNavIsActive && <ul className="item-nav__list">
+                            {category && category.map((value, idx) => {
+                                return (
+                                    <li>
+                                        {/* <input type="radio" name="category" onChange={() => getSkillsOfCategory(value)} /> */}
+                                        {source && console.log(typeof (source))}
+                                        <input type="checkbox" className="btn-check" onChange={() => { getSkillsOfCategory(value) }} id={idx + value} autocomplete="off"></input>
+                                        <label className="btn btn-outline-secondary categorylist" for={idx + value}>{value}</label><br />
+                                        {/* <button type="radio" name="category" onChange={() => getSkillsOfCategory(value)} /> */}
+
+                                    </li>
+                                )
+                            })}
+                        </ul>}
+                    </div>
+                    <div>
                         
-                    </div>}
-                    {categoryActive && <div style={{ marginTop: "5em", width: "100%", height: "50%" }}>
-                        {<ReactWordcloud
-                            callbacks={callbacks}
-                            words={source}
-                            options={options}
-                            maxWords={maxWord} // TODO : 최대 노출 문자 지정하게 끔 기능 구현.
-                            // size={[500,400]}
-                        />}
-                    </div>}
+
+                        {categoryActive && <div className="btn-group" style={{display:"flex",flexDirection:"row-reverse"}}>
+                            <div>
+                            <button className="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                단어 수
+                            </button>
+                            <ul className="dropdown-menu">
+                                <li onClick={() => {setMaxWord(50)}}>50</li>
+                                <li onClick={() => {setMaxWord(100)}}>100</li>
+                                <li onClick={() => {setMaxWord(150)}}>150</li>
+                                <li> <input type="text"/></li>
+                            </ul>
+                            </div>
+                            
+                        </div>}
+                        {categoryActive?
+                             <div style={{ marginTop: "5em", width: "100%", height: "50%" }}>
+                                { source.length > 1 ?<ReactWordcloud
+                                    callbacks={callbacks}
+                                    words={source}
+                                    options={options}
+                                    maxWords={maxWord} // TODO : 최대 노출 문자 지정하게 끔 기능 구현.
+                                    // size={[500,400]}
+                                />: <span>카테고리를 활성화 해주시거나 데이터를 가져오는 중입니다...</span>}
+                            </div>
+                            :
+                            <div>
+                                위 버튼을 눌러 주세요!
+                            </div>}
+                    </div>
 
                 </div>
                 <div style={{ display: 'flex', width: "50%", height: "100%",alignItems:'center',justifyContent:'center' }}>
                     <div style={{ display: 'flex', width: "50%", height: "100%" }}>
                         <Mapkr
                             click={(e) => { 
-                                setSelectLocation(e.target[Object.keys(e.target)[1]].id) 
-                                openModal();
+                                if(selectedSkill.length > 1){
+                                    setSelectLocation(e.target[Object.keys(e.target)[1]].id) 
+                                    e.target[Object.keys(e.target)[1]].id && openModal();
+                                }
                             }}
+                            hover={(e) => {
+                                if(selectedSkill.length < 1){
+                                    setXY({x:e.clientX,y:e.clientY});
+                                    setTipVisible(true);
+                                }
+                            }}
+                            leave={(e)=>{
+                                setTipVisible(false);
+
+                            }}
+
                             className="semiMap" selectedCallback={selectedLocationSkills} locations={locations}
                             ref={testRef}
                         />
@@ -290,6 +317,9 @@ const WordCloud = () => {
 
 
             </div>
+            {selectedSkill.length < 1 && locations.length < 1&& tipVisible && <div className='tip' style={{position:"absolute",left:xy.x,top:xy.y+30,zIndex:"99"}}>
+                기술 먼저 눌러주세요!
+            </div>}
         </div>
     );
 };

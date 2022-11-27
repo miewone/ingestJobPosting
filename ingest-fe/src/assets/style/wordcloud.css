@@ -77,6 +77,7 @@ path:hover{
 }
 .semiMap{
     transition: 1s;
+    width: 50%;
 }
 .dropdown-menu {
     --bs-dropdown-min-width: 5rem;
