@@ -3,14 +3,16 @@ import json
 from bs4 import BeautifulSoup
 import re
 import pymysql
-from yaml import parse
 from config import (DB_URL,DB_USERID,DB_PASSWORD)
 
 def findText_summay(pages, word):
-    text = pages.find(string=word)
-    text = text.find_parent("dt")
-    text = text.find_next("dd").text
-    return text
+    try:
+        text = pages.find(string=word)
+        text = text.find_parent("dt")
+        text = text.find_next("dd").text
+        return text
+    except:
+        return ""
 def findText_content(pages, word):
     try:
         text = pages.find(string=word)
@@ -23,16 +25,17 @@ def findText_content(pages, word):
 with pymysql.connect(host=DB_URL, user=DB_USERID, password=DB_PASSWORD, db='jobinfo', charset="utf8") as conn:
     cursor = conn.cursor()
     print(os.path)
-    files = os.listdir("/home/wgpark/jobinfo/DataCollection/postingData")
+    files = os.listdir("C:\\Project\\ingestjobposting-front\\DataCollection\\postingData")
     cnt = 0
     for post in files:
         cnt += 1
-        with open("/home/wgpark/jobinfo/DataCollection/postingData/{}".format(post), 'r', encoding="UTF-8") as job:
+        with open("C:\\Project\\ingestjobposting-front\\DataCollection\\postingData\\{}".format(post), 'r', encoding="UTF-8") as job:
             print(post + "\t\t" + str(cnt))
             category = ""
             page = job.read()
             parsePage = BeautifulSoup(page, 'html.parser')
             company = re.split('[_.]',post)[-2]
+            title= post[:post.rindex("_")-1]
             job = findText_summay(parsePage,"직무")
             career = findText_summay(parsePage,"경력")
             employment_pattern = findText_summay(parsePage,"고용형태")
@@ -45,7 +48,7 @@ with pymysql.connect(host=DB_URL, user=DB_USERID, password=DB_PASSWORD, db='jobi
             hiring_process = findText_content(parsePage,"채용 절차").replace("\n"," ")
             benefits = findText_content(parsePage,"복리후생").replace("\n"," ")
             location = findText_content(parsePage,"회사위치").replace("\n"," ")
-
+            url = parsePage.find("div", class_="post_link").text
             # 카테고리 찾기
             # overlapCategoryCnt = 0
             # if "디자인" in job:
@@ -79,10 +82,10 @@ with pymysql.connect(host=DB_URL, user=DB_USERID, password=DB_PASSWORD, db='jobi
             #           skill.split(",")] if "," in skill else skill
             # employmentTypes = employmentType.split(",") if "," in employmentType else employmentType
             insetJobPosingSql = """
-                insert into jobposting (company,job, career, employment_pattern, skills, company_introduction, major_task, certified, preferential, hiring_process, benefits, location) 
-                values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                insert into jobposting (title,company,job, career, employment_pattern, skills, company_introduction, major_task, certified, preferential, hiring_process, benefits, location,url) 
+                values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                 """
-            cursor.execute(insetJobPosingSql, (company,job, career, employment_pattern, skills, company_introduction, major_task, certified, preferential, hiring_process, benefits, location))
+            cursor.execute(insetJobPosingSql, (title,company,job, career, employment_pattern, skills, company_introduction, major_task, certified, preferential, hiring_process, benefits, location,url))
             
             # insetSkillSql = '''
             #     insert into skills (skill)
