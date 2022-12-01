@@ -17,5 +17,5 @@ public interface JobPostingRepository extends
     List<Jobposting> findAll();
     List<Jobposting> findAllBySkillsContaining(String skill);
 
-    Page<Jobposting> findAllBySkillsContainingAndLocationContaining(String skill, String location, Pageable pageable);
+    Page<Jobposting> findAllBySkillsContainingAndAddressCityContaining(String skill, String location, Pageable pageable);
 }
