@@ -1,5 +1,6 @@
 package com.be.ingestbe.service;
 
+import com.be.ingestbe.domain.Jobposting;
 import com.be.ingestbe.dto.JobPostingDto;
 import com.be.ingestbe.dto.SearchSemiPostingDto;
 import com.be.ingestbe.enums.CodeEnum;
@@ -10,6 +11,7 @@ import com.be.ingestbe.repository.JobPostingSkillsMapperRepository;
 import com.be.ingestbe.repository.JobPostingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +42,7 @@ public class JobPostingService {
         return jobPostingSkillsMapperRepository
                 .findAllBy()
                 .stream()
+                .filter(obj -> obj.getAddressCity() != null)
                 .map(obj -> obj.getSkills().split(","))
                 .flatMap(Arrays::stream)
                 .collect(Collectors.toList());
@@ -47,12 +50,11 @@ public class JobPostingService {
     public Map<String,Long> searchJobpostingBySkill(String skill) throws Exception {
         String lowerCase = skill.toLowerCase(Locale.ROOT);
         Optional<List<JobPostingSkillsMapper>> searchSkills = jobPostingSkillsMapperRepository.findAllBySkillsContaining(lowerCase);
-        
         return searchSkills
                 .orElseThrow(() -> new CustomException(CodeEnum.PARAMETER_ERROR))
                 .stream()
-                .filter(post -> checkSkillInSkills(post.getSkills(),lowerCase))
-                .map(obj -> counterLocations(obj.getLocation(),true))
+                .filter(post -> checkSkillInSkills(post.getSkills(),lowerCase) && post.getAddressCity() != null)
+                .map(obj -> counterLocations(obj.getAddressCity(),true))
                 .collect(Collectors.groupingBy(String::toString,Collectors.counting()));
     }
 
@@ -60,7 +62,8 @@ public class JobPostingService {
         return jobPostingSkillsMapperRepository
                 .findAllBy()
                 .stream()
-                .map(obj -> counterLocations(obj.getLocation(),true))
+                .filter(obj -> obj.getAddressCity() != null)
+                .map(obj -> counterLocations(obj.getAddressCity(),true))
                 .collect(Collectors.groupingBy(String::toString,Collectors.counting()));
     }
 
@@ -71,15 +74,18 @@ public class JobPostingService {
         return skillAndLocationSearching
                 .orElseThrow(() -> new CustomException(CodeEnum.PARAMETER_ERROR))
                 .stream()
-                .filter(post -> checkSkillInSkills(post.getSkills(),lowerCase))
-                .map(obj -> counterLocations(obj.getLocation(),false))
+                .filter(post -> checkSkillInSkills(post.getSkills(),lowerCase) && post.getAddressCity() != null)
+                .map(obj -> counterLocations(obj.getAddressCity(),false))
                 .collect(Collectors.groupingBy(String::toString,Collectors.counting()));
     }
 
     @Transactional(readOnly = true)
     public Page<JobPostingDto> searchSemiJobPostings(SearchSemiPostingDto body, Pageable pageable) {
-        Page<JobPostingDto> rr = jobpostingRepository.findAllBySkillsContainingAndLocationContaining(body.skill(), body.location(), pageable).map(JobPostingDto::from);
-        return jobpostingRepository.findAllBySkillsContainingAndLocationContaining(body.skill(), body.location(), pageable).map(JobPostingDto::from);
+        String lowerCase = body.skill().toLowerCase(Locale.ROOT);
+        return new PageImpl<>(jobpostingRepository.findAllBySkillsContainingAndAddressCityContaining(body.skill(), body.location(), pageable)
+                .stream()
+                .filter(post -> checkSkillInSkills(post.getSkills(),lowerCase) && post.getAddressCity() != null)
+                .map(JobPostingDto::from).toList());
     }
     private Boolean checkSkillInSkills(String skill,String targetSkill){
         if(targetSkill==null || targetSkill.equals("")) return true;
