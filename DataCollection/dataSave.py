@@ -3,7 +3,9 @@ import json
 from bs4 import BeautifulSoup
 import re
 import pymysql
-from config import (DB_URL,DB_USERID,DB_PASSWORD)
+import requests
+from config import (DB_URL,DB_USERID,DB_PASSWORD,REST_API_KEY)
+
 
 def findText_summay(pages, word):
     try:
@@ -21,21 +23,32 @@ def findText_content(pages, word):
     except:
         return ""
 
+def search_address(address, depth):
+    url = 'https://dapi.kakao.com/v2/local/search/address.json'
+    rest_api_key = REST_API_KEY
+    header = {'Authorization': 'KakaoAK ' + rest_api_key}
+    params = dict(query=address, analyze_type='exact')
+    response = requests.get(url, headers=header, params=params).json()
+    result = response['documents']
+    depth = str(depth)
+    depth = 'region_'+ depth +'depth_name' 
+    for i in result:
+        return i['road_address'][depth]
 
 with pymysql.connect(host=DB_URL, user=DB_USERID, password=DB_PASSWORD, db='jobinfo', charset="utf8") as conn:
     cursor = conn.cursor()
     print(os.path)
-    files = os.listdir("C:\\Project\\ingestjobposting-front\\DataCollection\\postingData")
+    files = os.listdir("C:\\ingestJobPosting\\\DataCollection\\postingData")
     cnt = 0
     for post in files:
         cnt += 1
-        with open("C:\\Project\\ingestjobposting-front\\DataCollection\\postingData\\{}".format(post), 'r', encoding="UTF-8") as job:
+        with open("C:\\ingestJobPosting\\DataCollection\\postingData\\{}".format(post), 'r', encoding="UTF-8") as job:
             print(post + "\t\t" + str(cnt))
             category = ""
             page = job.read()
             parsePage = BeautifulSoup(page, 'html.parser')
             company = re.split('[_.]',post)[-2]
-            title= post[:post.rindex("_")-1]
+            title= post[:post.rindex("_")].replace("_"," ")
             job = findText_summay(parsePage,"직무")
             career = findText_summay(parsePage,"경력")
             employment_pattern = findText_summay(parsePage,"고용형태")
@@ -49,6 +62,16 @@ with pymysql.connect(host=DB_URL, user=DB_USERID, password=DB_PASSWORD, db='jobi
             benefits = findText_content(parsePage,"복리후생").replace("\n"," ")
             location = findText_content(parsePage,"회사위치").replace("\n"," ")
             url = parsePage.find("div", class_="post_link").text
+            regex = "\(.*\)|\s-\s.*"
+            location = re.sub(regex, '', location).lstrip()
+            location_cut = location.split(',')[0]
+            if search_address(location_cut, 1) is None:
+                location_cut = location.split(' ')[:4]
+                location_cut = ",".join(location_cut).replace(',' ,' ')
+            address_city = search_address(location_cut, 1)
+            address_gu = search_address(location_cut, 2)
+            address_dong = search_address(location_cut, 3)
+            
             # 카테고리 찾기
             # overlapCategoryCnt = 0
             # if "디자인" in job:
@@ -82,10 +105,10 @@ with pymysql.connect(host=DB_URL, user=DB_USERID, password=DB_PASSWORD, db='jobi
             #           skill.split(",")] if "," in skill else skill
             # employmentTypes = employmentType.split(",") if "," in employmentType else employmentType
             insetJobPosingSql = """
-                insert into jobposting (title,company,job, career, employment_pattern, skills, company_introduction, major_task, certified, preferential, hiring_process, benefits, location,url) 
-                values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                insert into jobposting (title,company,job, career, employment_pattern, skills, company_introduction, major_task, certified, preferential, hiring_process, benefits, location, address_city, address_gu, address_dong, url) 
+                values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                 """
-            cursor.execute(insetJobPosingSql, (title,company,job, career, employment_pattern, skills, company_introduction, major_task, certified, preferential, hiring_process, benefits, location,url))
+            cursor.execute(insetJobPosingSql, (title,company,job, career, employment_pattern, skills, company_introduction, major_task, certified, preferential, hiring_process, benefits, location, address_city, address_gu, address_dong, url))
             
             # insetSkillSql = '''
             #     insert into skills (skill)
@@ -103,4 +126,4 @@ with pymysql.connect(host=DB_URL, user=DB_USERID, password=DB_PASSWORD, db='jobi
             # else:
             #     cursor.execute(insertSkillSql, (skills))
 
-            conn.commit();
+            conn.commit();bn    
