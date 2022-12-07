@@ -31,10 +31,8 @@ class Busan extends React.Component {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="500"
-        height="500"
         overflow="hidden"
-        viewBox="800 0 3300 2000"
+        viewBox="400 0 3000 2000"
         onClick={this.props.click}
         ref={this.svgRef}
 

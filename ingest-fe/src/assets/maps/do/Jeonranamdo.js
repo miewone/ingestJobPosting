@@ -130,28 +130,28 @@ class Jeonranamdo extends React.Component {
                     <circle class="POINT" cx="844" cy="445" r="3" />
                     <circle class="POINT" cx="895" cy="578" r="3" />
                 </g><g filter="url(#dropshadow2)">
-                    <text id="LCD46110" class="TEXT" x="303" y="430">목포시</text>
-                    <text id="LCD46130" class="TEXT" x="858" y="516">여수시</text>
-                    <text id="LCD46150" class="TEXT" x="737" y="332">순천시</text>
-                    <text id="LCD46170" class="TEXT" x="446" y="334">나주시</text>
-                    <text id="LCD46230" class="TEXT" x="852" y="318">광양시</text>
-                    <text id="LCD46710" class="TEXT" x="567" y="175">담양군</text>
-                    <text id="LCD46720" class="TEXT" x="682" y="215">곡성군</text>
-                    <text id="LCD46730" class="TEXT" x="786" y="205">구례군</text>
-                    <text id="LCD46770" class="TEXT" x="708" y="554">고흥군</text>
-                    <text id="LCD46780" class="TEXT" x="638" y="427">보성군</text>
-                    <text id="LCD46790" class="TEXT" x="582" y="325">화순군</text>
-                    <text id="LCD46800" class="TEXT" x="533" y="499">장흥군</text>
-                    <text id="LCD46810" class="TEXT" x="469" y="497">강진군</text>
-                    <text id="LCD46820" class="TEXT" x="379" y="570">해남군</text>
-                    <text id="LCD46830" class="TEXT" x="407" y="434">영암군</text>
-                    <text id="LCD46840" class="TEXT" x="318" y="352">무안군</text>
-                    <text id="LCD46860" class="TEXT" x="367" y="268">함평군</text>
-                    <text id="LCD46870" class="TEXT" x="332" y="180">영광군</text>
-                    <text id="LCD46880" class="TEXT" x="469" y="155">장성군</text>
-                    <text id="LCD46890" class="TEXT" x="466" y="718">완도군</text>
-                    <text id="LCD46900" class="TEXT" x="238" y="617">진도군</text>
-                    <text id="LCD46910" class="TEXT" x="223" y="388">신안군</text>
+                    <text className="mapfont TEXT" id="LCD46110" class="TEXT" x="303" y="430">목포시</text>
+                    <text className="mapfont TEXT" id="LCD46130" class="TEXT" x="858" y="516">여수시</text>
+                    <text className="mapfont TEXT" id="LCD46150" class="TEXT" x="737" y="332">순천시</text>
+                    <text className="mapfont TEXT" id="LCD46170" class="TEXT" x="446" y="334">나주시</text>
+                    <text className="mapfont TEXT" id="LCD46230" class="TEXT" x="852" y="318">광양시</text>
+                    <text className="mapfont TEXT" id="LCD46710" class="TEXT" x="567" y="175">담양군</text>
+                    <text className="mapfont TEXT" id="LCD46720" class="TEXT" x="682" y="215">곡성군</text>
+                    <text className="mapfont TEXT" id="LCD46730" class="TEXT" x="786" y="205">구례군</text>
+                    <text className="mapfont TEXT" id="LCD46770" class="TEXT" x="708" y="554">고흥군</text>
+                    <text className="mapfont TEXT" id="LCD46780" class="TEXT" x="638" y="427">보성군</text>
+                    <text className="mapfont TEXT" id="LCD46790" class="TEXT" x="582" y="325">화순군</text>
+                    <text className="mapfont TEXT" id="LCD46800" class="TEXT" x="533" y="499">장흥군</text>
+                    <text className="mapfont TEXT" id="LCD46810" class="TEXT" x="469" y="497">강진군</text>
+                    <text className="mapfont TEXT" id="LCD46820" class="TEXT" x="379" y="570">해남군</text>
+                    <text className="mapfont TEXT" id="LCD46830" class="TEXT" x="407" y="434">영암군</text>
+                    <text className="mapfont TEXT" id="LCD46840" class="TEXT" x="318" y="352">무안군</text>
+                    <text className="mapfont TEXT" id="LCD46860" class="TEXT" x="367" y="268">함평군</text>
+                    <text className="mapfont TEXT" id="LCD46870" class="TEXT" x="332" y="180">영광군</text>
+                    <text className="mapfont TEXT" id="LCD46880" class="TEXT" x="469" y="155">장성군</text>
+                    <text className="mapfont TEXT" id="LCD46890" class="TEXT" x="466" y="718">완도군</text>
+                    <text className="mapfont TEXT" id="LCD46900" class="TEXT" x="238" y="617">진도군</text>
+                    <text className="mapfont TEXT" id="LCD46910" class="TEXT" x="223" y="388">신안군</text>
                     </g>
             </svg>
         );

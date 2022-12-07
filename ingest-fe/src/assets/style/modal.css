@@ -14,7 +14,7 @@
     border: 0;
   }
   .modal > section {
-    width: 90%;
+    
     max-width: 70%;
     margin: 0 auto;
     border-radius: 0.3rem;
@@ -81,4 +81,7 @@
     to {
       opacity: 1;
     }
+  }
+  main label.btn.btn-outline-success {
+    width: 37%;
   }

@@ -11,33 +11,35 @@ class Gwangju extends React.Component {
 	viewBox="0 0 1000 1000"
       >
         <defs>
-          <clipPath id="clip0">
-            <path d="M1706 1818H1876V1935H1706z"></path>
-          </clipPath>
-        </defs>
-        <g
-          fill="#B8B8B8"
-          fillRule="evenodd"
-          stroke="#FFF"
-          strokeMiterlimit="8"
-          strokeWidth="1.719"
-          clipPath="url(#clip0)"
-          transform="translate(-1706 -1818)"
-        >
-          <path
-            d="M1712.46 1898.69 1708 1881.57 1720 1867.88 1711.77 1857.26 1739.21 1846.99 1759.1 1822 1757.04 1835.35 1792.03 1838.43 1803 1861.37 1793.4 1865.14 1777.28 1910.67 1763.22 1923 1746.41 1900.06Z"
-            stroke="#FFFFFF" strokeWidth="1.71893" strokeMiterlimit="8" fill="#B8B8B8" fillRule="evenodd" />
+        <clipPath id="clip0">
+            <rect x="1911" y="1038" width="578" height="397" />
+        </clipPath>
+    </defs>
+    <g clip-path="url(#clip0)" transform="translate(-1911 -1038)">
         <path
-            d="M1811.56 1826.4 1827 1823 1850.67 1864.42 1874 1868.5 1868.17 1889.21 1866.11 1896 1837.29 1874.27 1823.56 1879.7 1793.37 1865.1 1802.98 1861.37 1792 1838.62Z"
-            stroke="#FFFFFF" strokeWidth="1.71893" strokeMiterlimit="8" fill="#B8B8B8" fillRule="evenodd" />
+            d="M1929.69 1312.82 1914.39 1254.01 1955.56 1206.97 1927.32 1170.49 2021.48 1135.2 2089.74 1049.34 2082.67 1095.21 2202.74 1105.79 2240.39 1184.61 2207.44 1197.56 2152.12 1353.98 2103.88 1396.34 2046.19 1317.53Z"
+            stroke="#FFFFFF" stroke-width="5.90889" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" /><text className="mapfont TEXT"
+            
+            transform="matrix(1 0 0 1 2050.47 1231)">광산구</text>
         <path
-            d="M1777.57 1910.81 1815.29 1898.33 1814.26 1882.39 1824.89 1881 1829 1912.2 1817 1919.48 1784.09 1933 1757 1929.88 1763.51 1923.29Z"
-            stroke="#FFFFFF" strokeWidth="1.71893" strokeMiterlimit="8" fill="#B8B8B8" fillRule="evenodd" />
-        <path d="M1794.01 1865 1823.98 1879.87 1825 1881.26 1814.44 1882.64 1815.46 1898.55 1778 1911Z" stroke="#FFFFFF"
-            strokeWidth="1.71893" strokeMiterlimit="8" fill="#B8B8B8" fillRule="evenodd" />
-        <path d="M1824 1879.53 1837.87 1874 1867 1896.1 1843.42 1922 1829.2 1911.99 1825.04 1880.91Z" stroke="#FFFFFF"
-            strokeWidth="1.71893" strokeMiterlimit="8" fill="#B8B8B8" fillRule="evenodd" />
-        </g>
+            d="M2269.65 1065.03 2322.75 1053.34 2404.15 1195.76 2484.38 1209.79 2464.33 1281 2457.25 1304.34 2358.14 1229.63 2310.92 1248.3 2207.1 1198.1 2240.14 1185.27 2202.38 1107.05Z"
+            stroke="#FFFFFF" stroke-width="5.90889" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" /><text className="mapfont TEXT"
+            
+            transform="matrix(1 0 0 1 2326.04 1186)">북구</text>
+        <path
+            d="M2153.24 1354.96 2283.16 1312 2279.61 1257.13 2316.23 1252.34 2330.38 1359.74 2289.05 1384.8 2175.69 1431.34 2082.38 1420.6 2104.81 1397.92Z"
+            stroke="#FFFFFF" stroke-width="5.90889" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" /><text className="mapfont TEXT"
+            
+            transform="matrix(1 0 0 1 2188.54 1382)">남구</text>
+        <path d="M2209.57 1197.34 2312.87 1248.42 2316.38 1253.19 2279.98 1257.93 2283.5 1312.58 2154.38 1355.34Z"
+            stroke="#FFFFFF" stroke-width="5.90889" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" /><text className="mapfont TEXT"
+            
+            transform="matrix(1 0 0 1 2217.76 1284)">서구</text>
+        <path d="M2312.38 1247.35 2360.12 1228.34 2460.38 1304.31 2379.22 1393.34 2330.28 1358.93 2315.96 1252.1Z"
+            stroke="#FFFFFF" stroke-width="5.90889" stroke-miterlimit="8" fill="#B8B8B8" fill-rule="evenodd" /><text className="mapfont TEXT"
+            
+            transform="matrix(1 0 0 1 2369.01 1318)">동구</text>
+    </g>
       </svg>
     );
   }

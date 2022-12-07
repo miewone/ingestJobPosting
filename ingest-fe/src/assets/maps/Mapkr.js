@@ -13,6 +13,14 @@ class Mapkr extends React.Component {
         value.style.fill = `${this.props.locations[Object.entries(value)[1][1].name] ? `hsl(10 100% ${68 - Math.log2(this.props.locations[Object.entries(value)[1][1].name]) * 5}%)` : 'rgb(166, 166, 166)'}`
       })
     }
+    if (this.props.locations !== prevProps.locations) {
+      Object.values(this.svgRef["current"].childNodes[2].childNodes).map(value => {
+        value.textContent = value.textContent.split('\t')[0]
+        if( this.props.locations[Object.entries(value)[1][1].name]){
+          value.textContent += `\t( ${this.props.locations[Object.entries(value)[1][1].name]} )`
+        }
+      })
+    }
   }
   render() {
     return (
@@ -169,55 +177,55 @@ class Mapkr extends React.Component {
             ></path>
           </g>
           <g filter="url(#dropshadow)">
-            <text x="156" y="214" className="TEXT">
+            <text className="TEXT" x="156" y="214" name="서울">
               서울특별시
             </text>
-            <text x="503" y="695" className="TEXT">
+            <text className="TEXT" x="503" y="695" name="부산">
               부산광역시
             </text>
-            <text x="418" y="567" className="TEXT">
+            <text className="TEXT" x="418" y="567" name="대구">
               대구광역시
             </text>
-            <text x="67" y="177" className="TEXT">
+            <text className="TEXT" x="67" y="177" name="인천">
               인천광역시
             </text>
-            <text x="127" y="707" className="TEXT">
+            <text className="TEXT" x="127" y="707" name="광주">
               광주광역시
             </text>
-            <text x="221" y="463" className="TEXT">
+            <text className="TEXT" x="221" y="463" name="대전">
               대전광역시
             </text>
-            <text x="531" y="622" className="TEXT">
+            <text className="TEXT" x="531" y="622" name="울산">
               울산광역시
             </text>
-            <text x="199" y="418" className="TEXT">
+            <text className="TEXT" x="199" y="418" name="세종">
               세종특별자치시
             </text>
-            <text x="216" y="245" className="TEXT">
+            <text className="TEXT" x="216" y="245" name="경기">
               경기도
             </text>
-            <text x="370" y="179" className="TEXT">
+            <text className="TEXT" x="370" y="179" name="강원도">
               강원도
             </text>
-            <text x="294" y="381" className="TEXT">
+            <text className="TEXT" x="294" y="381" name="충청북도">
               충청북도
             </text>
-            <text x="105" y="449" className="TEXT">
+            <text className="TEXT" x="105" y="449" name="충청남도">
               충청남도
             </text>
-            <text x="179" y="592" className="TEXT">
+            <text className="TEXT" x="179" y="592" name="전라북도">
               전라북도
             </text>
-            <text x="138" y="764" className="TEXT">
+            <text className="TEXT" x="138" y="764" name="전라남도">
               전라남도
             </text>
-            <text x="447" y="460" className="TEXT">
+            <text className="TEXT" x="447" y="460" name="경상북도">
               경상북도
             </text>
-            <text x="367" y="672" className="TEXT">
+            <text className="TEXT" x="367" y="672" name="경상남도">
               경상남도
             </text>
-            <text x="76" y="1070" className="TEXT">
+            <text className="TEXT" x="76" y="1070" name="제주">
               제주특별자치도
             </text>
           </g>

@@ -22,6 +22,8 @@ import Ulsan from "../assets/maps/si/Ulsan"
 import Modal from "../components/utils/Modal"
 import JobPostingList from './JobPostingList';
 import "../assets/style/wordcloud.css";
+import Logo from "../assets/icon/guchung.jpg"
+import Point from "../assets/icon/point.png"
 let CounterKrLocations = "";
 
 
@@ -33,7 +35,7 @@ const Counter = (array) => {
 };
 
 const options = {
-    colors: ["#4E197F", "#2A63B3", "#4FB35D"],
+    colors: ["#2B3A55", "#CE7777", "#E8C4C4"],
     enableTooltip: false,
     deterministic: true,
     fontFamily: "Lora",
@@ -59,9 +61,10 @@ const WordCloud = () => {
     const [categoryNavIsActive, setCategoryNavIsActive] = useState(false);
     const [maxWord, setMaxWord] = useState(50);
     const [modalOpen, setModalOpen] = useState(false);
+    const [describe, setDescribe] = useState(true);
     const testRef = useRef();
-    const [xy,setXY]=useState({x:0,y:0})
-    const [tipVisible,setTipVisible] = useState(false);
+    const [xy, setXY] = useState({ x: 0, y: 0 })
+    const [tipVisible, setTipVisible] = useState(false);
     // const [allLocations,setAllLocations] = useState({});
 
 
@@ -72,6 +75,8 @@ const WordCloud = () => {
                 "location": location,
                 "skills": skill
             }).then((res) => {
+                console.log("로케이션~~")
+                console.log(res.data)
                 setSemiLocation(res.data);
             }).catch((err) => {
                 console.log(err);
@@ -83,6 +88,7 @@ const WordCloud = () => {
         await axios.get(`/jobinfo/locations/${e.text}`)
             .then((res) => {
                 setLocations(res.data)
+                console.log(res.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -114,6 +120,7 @@ const WordCloud = () => {
         await axios.get('/jobinfo/exposebylocation')
             .then((res) => {
                 setLocations(res.data);
+                console.log(res.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -165,133 +172,150 @@ const WordCloud = () => {
     };
     const openModal = () => {
         setModalOpen(true);
-      };
-      const closeModal = () => {
+    };
+    const closeModal = () => {
         setModalOpen(false);
-      };
+    };
+    const openDescribe = () => {
+        setDescribe(true);
+    };
+    const closeDescribe = () => {
+        setDescribe(false);
+    };
     return (
-        <div>
-            <div style={{ display: 'flex' }}>
+        <div style={{ width: "85%", margin: "2em" }}>
+            <div>
                 <div>
-                    <div>
-                        {selectLocation && <Modal open={modalOpen} close={closeModal} header={selectLocation}>
-                             <main style={{display:"flex"}}>  
-                                <div style={{width:"50%",display:"flex",alignContent:"center",justifyContent:"center"}}>
-
-                                 {selectLocation && selectedLocation[selectLocation]}
+                    <div className='headnav'>
+                        <Modal open={describe} close={closeDescribe} header="설명" className="describe">
+                            <main style={{ display: "flex"}}>
+                                <div style={{ display: "flex", flexDirection:"column"}}>
+                                <input type="radio" className="btn-check" name="options-outlined" id="skill" autoComplete="off"/>
+                                <label className="btn btn-outline-success" for="skill">기술</label>
+                                <input type="radio" className="btn-check" name="options-outlined" id="location" autoComplete="off"/>
+                                <label className="btn btn-outline-success" for="location">지역</label>
+                                <span>
+                                위 버튼을 누르면 워드맵과 지역에 표시가 됩니다.
+                                </span>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <span>
+                                지도에서 클릭 이벤트가 일어나면 상세보기가 가능합니다.>>
+                                </span>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <span>
+                                확인 하셨으면 <button type="button" onClick={closeDescribe} class="btn btn-primary btn-lg">닫기</button>를 눌러주세요!
+                                </span>
                                 </div>
-                                 <div style={{width:"50%"}}>
-                                    <JobPostingList skill={selectedSkill} location={selectLocation}/>
-                                 </div>
-                             </main>
+                                <div >
+                                    <Mapkr/>
+                                </div>
+                            </main>
+                        </Modal>
+                        {selectLocation && <Modal open={modalOpen} close={closeModal} header={selectLocation + "\t\t" + selectedSkill}>
+                            <main style={{ display: "flex" }}>
+                                <div style={{ width: "38%", display: "flex", alignContent: "center", justifyContent: "center" }}>
+
+                                    {selectLocation && selectedLocation[selectLocation]}
+                                </div>
+                                <div style={{ width: "62%" }}>
+                                    <JobPostingList skill={selectedSkill} location={selectLocation} />
+                                </div>
+                            </main>
                         </Modal>}
-                        <input type="radio" className="btn-check" name="options-outlined" id="company" autoComplete="off" />
-                        <label className="btn btn-outline-success" for="company">회사</label>
-                        <input type="radio" className="btn-check" name="options-outlined" id="skill" autoComplete="off" onChange={getAllSkills} />
-                        <input type="radio" className="btn-check" name="options-outlined" id="jobs" autoComplete="off" />
-                        <label className="btn btn-outline-success" for="jobs">직무</label>
-                        <input type="radio" className="btn-check" name="options-outlined" id="skill" autoComplete="off" onChange={getAllSkills} />
-                        <label className="btn btn-outline-success" for="skill">기술</label>
-                        <input type="radio" className="btn-check" name="options-outlined" id="location" autoComplete="off" onChange={getAllLocations} />
-                        <label className="btn btn-outline-success" for="location">지역</label>
-                        {/* 
-                        <label>
-                            <input type="radio" value="1" name="test1" />
-                            회사
-                        </label>
-                        <label>
-                            <input type="radio" value="2" name="test1" onChange={getAllSkills} />
-                            기술
-                        </label>
-                        <label>
-                            <input type="radio" value="2" name="test1" onChange={getAllLocations} />
-                            지역
-                        </label> */}
+                        <nav className='nav'>
+                            {/* <input type="radio" className="btn-check" name="options-outlined" id="company" autoComplete="off" />
+                            <label className="btn btn-outline-success" for="company">회사</label>
+                            <input type="radio" className="btn-check" name="options-outlined" id="jobs" autoComplete="off" />
+                            <label className="btn btn-outline-success" for="jobs">직무</label> */}
+                            <img src={Logo} width="14%" />
+                            <input type="radio" className="btn-check" name="options-outlined" id="skill" autoComplete="off" onChange={getAllSkills} />
+                            <label className="btn btn-outline-success" for="skill">기술</label>
+                            <input type="radio" className="btn-check" name="options-outlined" id="location" autoComplete="off" onChange={getAllLocations} />
+                            <label className="btn btn-outline-success" for="location">지역</label>
+                            {categoryActive &&
+                                <div>
+                                    <button className="categoryAll" onClick={() => { setCategoryNavIsActive(!categoryNavIsActive) }}>카테고리 선택</button>
+                                    <button className="more-button" onClick={() => { setCategoryNavIsActive(!categoryNavIsActive) }} type="button"><i className="jp-chevron-down"></i></button>
+                                </div> 
+                                }
+                        </nav>
+                        <div>
+                            {categoryNavIsActive && <ul className="item-nav__list">
+                                {category && category.map((value, idx) => {
+                                    return (
+                                        <li>
+                                            {/* <input type="radio" name="category" onChange={() => getSkillsOfCategory(value)} /> */}
+                                            {source && console.log(typeof (source))}
+                                            <input type="checkbox" className="btn-check" onChange={() => { getSkillsOfCategory(value) }} id={idx + value} autocomplete="off"></input>
+                                            <label className="btn btn-outline-secondary categorylist" for={idx + value}>{value}</label><br />
+                                            {/* <button type="radio" name="category" onChange={() => getSkillsOfCategory(value)} /> */}
+
+                                        </li>
+                                    )
+                                })}
+                            </ul>}
+                        </div>
                     </div>
-                    {categoryActive && <div style={{ width: "100%" }}>
-                        <button className="categoryAll" onClick={() => { setCategoryNavIsActive(!categoryNavIsActive) }}>전체</button>
-                        <button className="more-button" onClick={() => { setCategoryNavIsActive(!categoryNavIsActive) }} type="button"><i className="jp-chevron-down"></i></button>
-                        {/* <div style={{ display: 'flex', flexDirection: "row" }}> */}
-                    </div>}
+
 
                 </div>
 
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                {/* <div>
-                    표시될 단어 수<input type="text" />
-                </div>
-                <div style={{ position: "absolute", left: "50%" }}>
-                    {pocusloations}
-                </div> */}
-                <div style={{width:"41%"}}>
+            <div className='itembody'>
+                <div style={{ width: categoryActive ? "41%" : "1%" }}>
                     <div>
-                    {categoryNavIsActive && <ul className="item-nav__list">
-                            {category && category.map((value, idx) => {
-                                return (
-                                    <li>
-                                        {/* <input type="radio" name="category" onChange={() => getSkillsOfCategory(value)} /> */}
-                                        {source && console.log(typeof (source))}
-                                        <input type="checkbox" className="btn-check" onChange={() => { getSkillsOfCategory(value) }} id={idx + value} autocomplete="off"></input>
-                                        <label className="btn btn-outline-secondary categorylist" for={idx + value}>{value}</label><br />
-                                        {/* <button type="radio" name="category" onChange={() => getSkillsOfCategory(value)} /> */}
+                        {<div className="btn-group" style={{ display: "flex", flexDirection: "row-reverse" }}>
+                            {source.length > 1 && <div>
+                                <button className="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    단어 수
+                                </button>
+                                <ul className="dropdown-menu">
+                                    <li onClick={() => { setMaxWord(50) }}>50</li>
+                                    <li onClick={() => { setMaxWord(100) }}>100</li>
+                                    <li onClick={() => { setMaxWord(150) }}>150</li>
+                                </ul>
+                            </div>}
 
-                                    </li>
-                                )
-                            })}
-                        </ul>}
-                    </div>
-                    <div>
-                        
-
-                        {categoryActive && <div className="btn-group" style={{display:"flex",flexDirection:"row-reverse"}}>
-                            <div>
-                            <button className="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                단어 수
-                            </button>
-                            <ul className="dropdown-menu">
-                                <li onClick={() => {setMaxWord(50)}}>50</li>
-                                <li onClick={() => {setMaxWord(100)}}>100</li>
-                                <li onClick={() => {setMaxWord(150)}}>150</li>
-                                <li> <input type="text"/></li>
-                            </ul>
-                            </div>
-                            
                         </div>}
-                        {categoryActive?
-                             <div style={{ marginTop: "5em", width: "100%", height: "50%" }}>
-                                { source.length > 1 ?<ReactWordcloud
+                        {
+                            <div style={{ marginTop: "5em", width: "100%", height: "50%" }}>
+                                {source.length > 1 && <ReactWordcloud
                                     callbacks={callbacks}
                                     words={source}
                                     options={options}
                                     maxWords={maxWord} // TODO : 최대 노출 문자 지정하게 끔 기능 구현.
-                                    // size={[500,400]}
-                                />: <span>카테고리를 활성화 해주시거나 데이터를 가져오는 중입니다...</span>}
+                                // size={[500,400]}
+                                /> }
                             </div>
-                            :
-                            <div>
-                                위 버튼을 눌러 주세요!
-                            </div>}
+                        }
                     </div>
 
                 </div>
-                <div style={{ display: 'flex', width: "50%", height: "100%",alignItems:'center',justifyContent:'center' }}>
+                <div style={{ display: 'flex', width: "50%", height: "100%", alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ display: 'flex', width: "50%", height: "100%" }}>
                         <Mapkr
-                            click={(e) => { 
-                                if(selectedSkill.length > 1){
-                                    setSelectLocation(e.target[Object.keys(e.target)[1]].id) 
-                                    e.target[Object.keys(e.target)[1]].id && openModal();
-                                }
+                            click={(e) => {
+                                // if(selectedSkill.length > 1){
+                                setSelectLocation(e.target[Object.keys(e.target)[1]].id)
+                                e.target[Object.keys(e.target)[1]].id && openModal();
+                                // }
                             }}
                             hover={(e) => {
-                                if(selectedSkill.length < 1){
-                                    setXY({x:e.clientX,y:e.clientY});
+                                if (selectedSkill.length < 1) {
+                                    setXY({ x: e.clientX, y: e.clientY });
                                     setTipVisible(true);
                                 }
                             }}
-                            leave={(e)=>{
+                            leave={(e) => {
                                 setTipVisible(false);
 
                             }}
@@ -317,9 +341,10 @@ const WordCloud = () => {
 
 
             </div>
-            {selectedSkill.length < 1 && locations.length < 1&& tipVisible && <div className='tip' style={{position:"absolute",left:xy.x,top:xy.y+30,zIndex:"99"}}>
-                기술 먼저 눌러주세요!
+            {selectedSkill.length < 1 && locations.length < 1 && tipVisible && <div className='tip' style={{ position: "absolute", left: xy.x, top: xy.y + 30, zIndex: "99" }}>
+                먼저 눌러주세요!
             </div>}
+
         </div>
     );
 };

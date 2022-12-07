@@ -93,55 +93,55 @@ function Simple() {
         
       </g>
       <g filter="url(#dropshadow)">
-        <text x="156" y="214" className="TEXT">
+        <text className="mapfont TEXT" x="156" y="214" className="TEXT">
           서울특별시
         </text>
-        <text x="503" y="695" className="TEXT">
+        <text className="mapfont TEXT" x="503" y="695" className="TEXT">
           부산광역시
         </text>
-        <text x="418" y="567" className="TEXT">
+        <text className="mapfont TEXT" x="418" y="567" className="TEXT">
           대구광역시
         </text>
-        <text x="67" y="177" className="TEXT">
+        <text className="mapfont TEXT" x="67" y="177" className="TEXT">
           인천광역시
         </text>
-        <text x="127" y="707" className="TEXT">
+        <text className="mapfont TEXT" x="127" y="707" className="TEXT">
           광주광역시
         </text>
-        <text x="221" y="463" className="TEXT">
+        <text className="mapfont TEXT" x="221" y="463" className="TEXT">
           대전광역시
         </text>
-        <text x="531" y="622" className="TEXT">
+        <text className="mapfont TEXT" x="531" y="622" className="TEXT">
           울산광역시
         </text>
-        <text x="199" y="418" className="TEXT">
+        <text className="mapfont TEXT" x="199" y="418" className="TEXT">
           세종특별자치시
         </text>
-        <text x="216" y="245" className="TEXT">
+        <text className="mapfont TEXT" x="216" y="245" className="TEXT">
           경기도
         </text>
-        <text x="370" y="179" className="TEXT">
+        <text className="mapfont TEXT" x="370" y="179" className="TEXT">
           강원도
         </text>
-        <text x="294" y="381" className="TEXT">
+        <text className="mapfont TEXT" x="294" y="381" className="TEXT">
           충청북도
         </text>
-        <text x="105" y="449" className="TEXT">
+        <text className="mapfont TEXT" x="105" y="449" className="TEXT">
           충청남도
         </text>
-        <text x="179" y="592" className="TEXT">
+        <text className="mapfont TEXT" x="179" y="592" className="TEXT">
           전라북도
         </text>
-        <text x="138" y="764" className="TEXT">
+        <text className="mapfont TEXT" x="138" y="764" className="TEXT">
           전라남도
         </text>
-        <text x="447" y="460" className="TEXT">
+        <text className="mapfont TEXT" x="447" y="460" className="TEXT">
           경상북도
         </text>
-        <text x="367" y="672" className="TEXT">
+        <text className="mapfont TEXT" x="367" y="672" className="TEXT">
           경상남도
         </text>
-        <text x="76" y="1070" className="TEXT">
+        <text className="mapfont TEXT" x="76" y="1070" className="TEXT">
           제주특별자치도
         </text>
       </g>

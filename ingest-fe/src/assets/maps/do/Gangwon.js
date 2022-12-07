@@ -67,58 +67,58 @@ class Gangwon extends React.Component {
                         stroke="#FFFFFF" strokeWidth="4.98176" strokeMiterlimit="8" fill="#B8B8B8" fillRule="evenodd" />
                 </g>
                 <g>
-                    <text
+                    <text className="mapfont TEXT"
                         x="2618.81"
                         y="945">양양군</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="2391.31"
                         y="343">고성군</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="2176.85"
                         y="820">인제군</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="1881.24"
                         y="711">양구군</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="1459.56"
                         y="749">화천군</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="1201.63"
                         y="637">철원군</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="2804.29"
                         y="1940">정선군</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="2498.54"
                         y="1673">평창군</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="2513.03"
                         y="2182">영월군</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="1913.12"
                         y="1766">횡성군</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="1947.89"
                         y="1362">홍천군</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="3253.5"
                         y="2108">삼척시</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="2501.44"
                         y="691">속초시</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="3102.8"
                         y="2199">태백시</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="3191.19"
                         y="1713">동해시</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="2895.58"
                         y="1411">강릉시</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="1847.91"
                         y="2021">원주시</text>
-                    <text
+                    <text className="mapfont TEXT"
                         x="1585.63"
                         y="1158">춘천시</text>
                 </g>

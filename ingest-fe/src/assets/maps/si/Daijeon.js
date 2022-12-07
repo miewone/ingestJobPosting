@@ -29,11 +29,11 @@ class Daijeon extends React.Component {
           <path id="CD30230" d="M 572 149 l -5 20 -6 11 -2 12 7 12 12 4 11 -1 12 -5 12 2 1 11 -7 9 -16 17 -9 5 -15 22 -14 26 -6 14 -11 15 -10 9 -14 13 -4 18 -2 23 0 23 9 19 7 10 9 18 -4 21 -21 -5 -18 3 -15 -15 -12 -2 -13 21 -10 8 -8 16 -12 -4 -16 -13 -4 -20 -2 -6 0 0 -4 -8 -14 -22 8 -13 21 -9 9 -23 0 -22 4 -16 5 -13 7 -21 -6 -18 -9 -12 -13 -8 -15 -13 -12 -13 -7 -9 0 -13 10 -13 12 -14 18 3 22 -1 24 -4 14 1 -5 1 8 3 9 8 24 4 12 -6 7 -13 6 -25 9 -15 9 -7 z " />
         </g>
         <g>
-          <text id="LCD30110"  x="552" y="551">동구</text>
-          <text id="LCD30140"  x="414" y="666">중구</text>
-          <text id="LCD30170"  x="272" y="667">서구</text>
-          <text id="LCD30200"  x="247" y="410">유성구</text>
-          <text id="LCD30230"  x="477" y="317">대덕구</text>
+          <text className="mapfont TEXT" id="LCD30110"  x="552" y="551">동구</text>
+          <text className="mapfont TEXT" id="LCD30140"  x="414" y="666">중구</text>
+          <text className="mapfont TEXT" id="LCD30170"  x="272" y="667">서구</text>
+          <text className="mapfont TEXT" id="LCD30200"  x="247" y="410">유성구</text>
+          <text className="mapfont TEXT" id="LCD30230"  x="477" y="317">대덕구</text>
         </g>
       </svg>
     );

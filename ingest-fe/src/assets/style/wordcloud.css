@@ -5,7 +5,7 @@ text:hover{
     background-color: white;
 }
 
-li {
+.item-nav__list li {
     list-style: none;
     padding : 0;
     display: list-item;
@@ -68,7 +68,7 @@ ul {
 }
 
 .jp-chevron-down:before {
-    content: "\e931";
+    content: ">";
 }
 
 path:hover{
@@ -84,8 +84,12 @@ path:hover{
     /* --bs-dropdown-padding-x: 0; */
 }
 
-.dropdown-menu li:hover::before{
-    content: ">";
+.dropdown-menu li:hover::after{
+    content: "<";
+    transition: 1s;
+}
+.dropdown-menu li:hover{
+    font-weight: bold;
 }
 
 
@@ -105,4 +109,36 @@ path:hover{
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-evenly;
+    transition: 1s;
+    margin: 2em;
+}
+
+label.btn.btn-outline-success {
+    width: 20%;
+    margin: 6px;
+}
+/* .headnav{
+    border-top: solid 7px #CCD6A6;
+    border-bottom: solid 7px #CCD6A6;
+    border-radius: 10px;
+    padding: 0.2em;
+    
+} */
+.itembody{
+    margin-top: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 5px 5px 5px 5px gray;
+    border-radius: 10px;
+    padding: 1em 0px 1em 0px;
+}
+
+.describe{
+    width: 50%;
 }

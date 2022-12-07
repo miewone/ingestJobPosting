@@ -20,8 +20,13 @@ class Seoul extends React.Component {
   componentDidUpdate(prevProps) {
     
     if (this.props.locations !== prevProps.locations) {
+      console.log(this.props.locations)
       Object.values(this.svgRef["current"].childNodes[1].childNodes).map(value => {
-        value.style.fill = `${this.props.locations[Object.entries(value)[1][1].name] ? `hsl(10 100% ${68-Math.log2(this.props.locations[Object.entries(value)[1][1].name])*5}%)`:'rgb(166, 166, 166)'}`
+        value.style.fill = `${this.props.locations[Object.entries(value)[1][1].name] ? `hsl(10 100% ${68-Math.log2(this.props.locations[Object.entries(value)[1][1].name])*5}%)`:'rgb(166, 166, 166)'}`;
+        value.textContent = value.textContent.split('\t')[0]
+        if( this.props.locations[Object.entries(value)[1][1].name]){
+          value.textContent += `\t( ${this.props.locations[Object.entries(value)[1][1].name]} )`
+        }
       })
     }
     if(this.props.skill !== prevProps.skill){

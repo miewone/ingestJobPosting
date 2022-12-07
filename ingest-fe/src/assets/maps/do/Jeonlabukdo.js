@@ -8,7 +8,7 @@ class Jeonlabukdo extends React.Component {
         width="600"
         height="600"
         overflow="hidden"
-        viewBox="0 0 1000 1000"
+        viewBox="0 0 1000 500"
       >
         <defs>
           <filter id="dropshadow">
@@ -49,21 +49,21 @@ class Jeonlabukdo extends React.Component {
           <circle class="POINT" cx="379" cy="202" r="3" />
           <circle class="POINT" cx="80" cy="315" r="3" />
           <circle class="POINT" cx="219" cy="285" r="3" />
-        </g><g filter="url(#dropshadow2)"><text id="LCD45111" class="TEXT" x="417" y="223">전주시완산구</text>
-          <text id="LCD45113" class="TEXT" x="413" y="190">전주시덕진구</text>
-          <text id="LCD45130" class="TEXT" x="259" y="144">군산시</text>
-          <text id="LCD45140" class="TEXT" x="365" y="109">익산시</text>
-          <text id="LCD45180" class="TEXT" x="330" y="315">정읍시</text>
-          <text id="LCD45190" class="TEXT" x="545" y="405">남원시</text>
-          <text id="LCD45210" class="TEXT" x="326" y="215">김제시</text>
-          <text id="LCD45710" class="TEXT" x="441" y="139">완주군</text>
-          <text id="LCD45720" class="TEXT" x="541" y="205">진안군</text>
-          <text id="LCD45730" class="TEXT" x="654" y="150">무주군</text>
-          <text id="LCD45740" class="TEXT" x="587" y="289">장수군</text>
-          <text id="LCD45750" class="TEXT" x="463" y="318">임실군</text>
-          <text id="LCD45770" class="TEXT" x="404" y="399">순창군</text>
-          <text id="LCD45790" class="TEXT" x="213" y="390">고창군</text>
-          <text id="LCD45800" class="TEXT" x="152" y="231">부안군</text>
+        </g><g filter="url(#dropshadow2)"><text className="mapfont TEXT" id="LCD45111" class="TEXT" x="417" y="223">전주시완산구</text>
+          <text className="mapfont TEXT" id="LCD45113" class="TEXT" x="413" y="190">전주시덕진구</text>
+          <text className="mapfont TEXT" id="LCD45130" class="TEXT" x="259" y="144">군산시</text>
+          <text className="mapfont TEXT" id="LCD45140" class="TEXT" x="365" y="109">익산시</text>
+          <text className="mapfont TEXT" id="LCD45180" class="TEXT" x="330" y="315">정읍시</text>
+          <text className="mapfont TEXT" id="LCD45190" class="TEXT" x="545" y="405">남원시</text>
+          <text className="mapfont TEXT" id="LCD45210" class="TEXT" x="326" y="215">김제시</text>
+          <text className="mapfont TEXT" id="LCD45710" class="TEXT" x="441" y="139">완주군</text>
+          <text className="mapfont TEXT" id="LCD45720" class="TEXT" x="541" y="205">진안군</text>
+          <text className="mapfont TEXT" id="LCD45730" class="TEXT" x="654" y="150">무주군</text>
+          <text className="mapfont TEXT" id="LCD45740" class="TEXT" x="587" y="289">장수군</text>
+          <text className="mapfont TEXT" id="LCD45750" class="TEXT" x="463" y="318">임실군</text>
+          <text className="mapfont TEXT" id="LCD45770" class="TEXT" x="404" y="399">순창군</text>
+          <text className="mapfont TEXT" id="LCD45790" class="TEXT" x="213" y="390">고창군</text>
+          <text className="mapfont TEXT" id="LCD45800" class="TEXT" x="152" y="231">부안군</text>
         </g>
       </svg>
     );

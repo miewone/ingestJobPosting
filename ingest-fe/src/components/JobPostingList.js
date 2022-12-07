@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LinkClick from "../assets/icon/LinkClick"
+import "../assets/style/jobpostinglist.css"
+
 const JobPostingList = ({ skill, location }) => {
     const [posts, setPosts] = useState([]);
     const [paginations, setPaginations] = useState([]);
@@ -44,20 +46,19 @@ const JobPostingList = ({ skill, location }) => {
                                 <td>{ele.title}</td>
                                 <td>{ele.job}</td>
                                 <td>{ele.company}</td>
-                                <td>{ele.location.split("구")[0].split(" ").slice(-1)[0]+"구"}</td>
-                                <td><a href={ele.url} target="_blank"><LinkClick/></a></td>
+                                <td>{ele.addressGu}</td>
+                                <td><a href={ele.url} target="_blank"><LinkClick /></a></td>
                             </tr>
                         )
                     })}
                 </tbody>
             </table>
-            <nav aria-label="Page navigation example">
-                <ul className="pagination">
-                    <li className="page-item"><a className="page-link" href="#">Previous</a></li>
-                    {paginations && paginations.map((ele,idx) => {
-                        return (<li className="page-item" onClick={() => {searchSemiPosting(ele)}}><a className="page-link" href="#" >{ele+1}</a></li>)
+            
+            <nav aria-label="...">
+                <ul class="pagination pagination-sm justify-content-center">
+                {paginations && paginations.map((ele, idx) => {
+                        return (<li className="page-item" onClick={() => { searchSemiPosting(ele) }}><a className="page-link" >{ele + 1}</a></li>)
                     })}
-                    <li className="page-item"><a className="page-link" href="#">Next</a></li>
                 </ul>
             </nav>
         </>

@@ -5,7 +5,7 @@
 }
 
 .TEXT {
-    fill: #fcf5f5;
+    fill: #fcf5f5 !important; 
 }
 path {
     fill :rgb(166, 166, 166);
