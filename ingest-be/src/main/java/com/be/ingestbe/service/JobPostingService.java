@@ -69,23 +69,26 @@ public class JobPostingService {
 
     public Map<String,Long> getSelectedLocationAndSkills(JobPostingDto body){
         String lowerCase = body.skills().toLowerCase(Locale.ROOT);
-        Optional<List<JobPostingSkillsMapper>> skillAndLocationSearching = jobPostingSkillsMapperRepository
+        List<JobPostingSkillsMapper> skillAndLocationSearching = jobPostingSkillsMapperRepository
                 .findAllBySkillsContainingAndLocationContaining(lowerCase,body.location());
         return skillAndLocationSearching
-                .orElseThrow(() -> new CustomException(CodeEnum.PARAMETER_ERROR))
                 .stream()
-                .filter(post -> checkSkillInSkills(post.getSkills(),lowerCase) && post.getAddressCity() != null)
-                .map(obj -> counterLocations(obj.getAddressCity(),false))
+                .filter(post -> checkSkillInSkills(post.getSkills(),lowerCase) && post.getAddressGu() != null)
+                .map(obj -> obj.getAddressGu())
                 .collect(Collectors.groupingBy(String::toString,Collectors.counting()));
     }
 
     @Transactional(readOnly = true)
     public Page<JobPostingDto> searchSemiJobPostings(SearchSemiPostingDto body, Pageable pageable) {
         String lowerCase = body.skill().toLowerCase(Locale.ROOT);
-        return new PageImpl<>(jobpostingRepository.findAllBySkillsContainingAndAddressCityContaining(body.skill(), body.location(), pageable)
+        List<JobPostingDto> content = jobpostingRepository.findAllBySkillsContainingAndAddressCityContaining(body.skill(), body.location())
                 .stream()
                 .filter(post -> checkSkillInSkills(post.getSkills(),lowerCase) && post.getAddressCity() != null)
-                .map(JobPostingDto::from).toList());
+                .map(JobPostingDto::from).toList();
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start+ pageable.getPageSize(),content.size());
+        Page<JobPostingDto> test = new PageImpl<>(content.subList(start,end),pageable, content.size());
+        return test;
     }
     private Boolean checkSkillInSkills(String skill,String targetSkill){
         if(targetSkill==null || targetSkill.equals("")) return true;
@@ -108,7 +111,7 @@ public class JobPostingService {
                 return value;
             }
             else if(str.contains(value) && !semiValue){
-                return str.split(" ")[1];
+                return str;
             }
         }
         return "기타";
