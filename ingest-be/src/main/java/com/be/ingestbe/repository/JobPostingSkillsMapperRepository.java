@@ -11,6 +11,6 @@ public interface JobPostingSkillsMapperRepository extends JpaRepository<Jobposti
     List<JobPostingSkillsMapper> findAllBy();
     Optional<List<JobPostingSkillsMapper>> findAllBySkillsContaining(String keyword);
 
-    Optional<List<JobPostingSkillsMapper>> findAllBySkillsContainingAndLocationContaining(String skill, String location);
+    List<JobPostingSkillsMapper> findAllBySkillsContainingAndLocationContaining(String skill, String location);
 
 }

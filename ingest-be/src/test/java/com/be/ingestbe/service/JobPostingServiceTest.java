@@ -90,7 +90,7 @@ class JobPostingServiceTest {
         // Then
         assertThat(jobPostingSkillsAndLocation).isEmpty();
 
-        then(jobpostingRepository).should().findAllBySkillsContainingAndLocationContaining(body.skill(),body.location(),pageable);
+        then(jobpostingRepository).should().findAllBySkillsContainingAndAddressCityContaining(body.skill(),body.location());
     }
 
 

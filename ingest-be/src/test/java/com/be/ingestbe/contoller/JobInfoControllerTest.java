@@ -90,11 +90,6 @@ class JobInfoControllerTest {
                 SearchSemiPostingDto.of("skill", "java","강남")
         );
 
-//        given(jobpostingService.searchSemiJobPostings(eq(searchType), eq(body), any(Pageable.class))).willReturn(Page.empty());
-//        given(jobpostingService.searchSemiJobPostings(null,null,pageable)).willReturn(Page.empty());
-//        given(paginationService.getPaginationBarNumbers(pageable.getPageNumber(), Page.empty().getTotalPages())).willReturn(barNumbers);
-
-
         // When
         mvc.perform(
                         post("/jobinfo/searchposting")

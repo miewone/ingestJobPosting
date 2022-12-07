@@ -22,7 +22,10 @@ public record JobPostingDto(
         String location,
         String company,
         String url,
-        String title
+        String title,
+        String addressGu,
+        String addressCity,
+        String addressDong
 ) implements Serializable {
 
     public static JobPostingDto of(
@@ -40,14 +43,19 @@ public record JobPostingDto(
                          String location,
                          String company,
                          String url,
-                         String title) {
+                         String title,
+                         String addressGu,
+                         String addressCity,
+                         String addressDong
+
+    ) {
         return new JobPostingDto(
-                job, career, employment_pattern, pay, skills, company_introduction, major_task, certified, preferential, hiring_process, benefits, location, company, url, title
+                job, career, employment_pattern, pay, skills, company_introduction, major_task, certified, preferential, hiring_process, benefits, location, company, url, title,addressGu,addressCity,addressDong
         );
     }
 
     public static JobPostingDto of(String skills, String location){
-        return new JobPostingDto(null,null,null,null, skills,null,null,null,null,null, null, location, null,null ,null);
+        return new JobPostingDto(null,null,null,null, skills,null,null,null,null,null, null, location, null,null ,null,null,null,null);
     }
 
     public static JobPostingDto from(Jobposting entity) {
@@ -66,7 +74,10 @@ public record JobPostingDto(
                 entity.getLocation(),
                 entity.getCompany(),
                 entity.getUrl(),
-                entity.getTitle()
+                entity.getTitle(),
+                entity.getAddressGu(),
+                entity.getAddressCity(),
+                entity.getAddressDong()
         );
     }
 }
